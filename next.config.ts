@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   
-  // Image optimization
+  // Mobile-optimized image configuration
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
@@ -116,19 +116,19 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // Optimized webpack configuration
+  // Mobile-optimized webpack configuration
   webpack: (config, { dev, isServer }) => {
     // Production optimizations
     if (!dev && !isServer) {
-      // More aggressive bundle splitting for desktop performance
+      // Mobile-friendly bundle splitting - fewer chunks for better performance on slow connections
       config.optimization.splitChunks = {
         chunks: 'all',
-        minSize: 20000,
-        maxSize: 244000,
+        minSize: 30000, // Larger minimum size for mobile
+        maxSize: 200000, // Smaller max size for mobile
         cacheGroups: {
           default: false,
           vendors: false,
-          // Framework chunk (React, Next.js) - keep small
+          // Framework chunk - keep React and Next.js together for mobile
           framework: {
             name: 'framework',
             chunks: 'all',
@@ -136,57 +136,31 @@ const nextConfig: NextConfig = {
             priority: 40,
             enforce: true,
           },
-          // UI Library chunk (Radix UI) - separate for better caching
-          ui: {
-            name: 'ui-lib',
-            chunks: 'all',
-            test: /[\\/]node_modules[\\/](@radix-ui|class-variance-authority|clsx|tailwind-merge)[\\/]/,
-            priority: 35,
-            enforce: true,
-          },
-          // Icons chunk (Lucide React) - separate for performance
-          icons: {
-            name: 'icons',
-            chunks: 'all',
-            test: /[\\/]node_modules[\\/](lucide-react)[\\/]/,
-            priority: 30,
-            enforce: true,
-          },
-          // Form libraries chunk
-          forms: {
-            name: 'forms',
-            chunks: 'all',
-            test: /[\\/]node_modules[\\/](react-hook-form|zod)[\\/]/,
-            priority: 25,
-            enforce: true,
-          },
-          // Common vendor chunk
+          // Single vendor chunk for mobile efficiency
           vendor: {
             name: 'vendor',
             chunks: 'all',
             test: /[\\/]node_modules[\\/]/,
-            priority: 10,
+            priority: 20,
             enforce: true,
             minChunks: 2,
           },
-          // Common app chunk
+          // App code chunk
           common: {
             name: 'common',
             minChunks: 2,
             chunks: 'all',
-            priority: 5,
+            priority: 10,
             enforce: true,
           },
         },
       };
 
-      // Aggressive tree shaking optimizations
+      // Tree shaking optimizations
       config.optimization.usedExports = true;
       config.optimization.sideEffects = false;
-      config.optimization.providedExports = true;
-      config.optimization.innerGraph = true;
       
-      // Enable module concatenation for better performance
+      // Module concatenation for better performance
       config.optimization.concatenateModules = true;
     }
 
@@ -195,13 +169,6 @@ const nextConfig: NextConfig = {
       ...config.resolve.alias,
       // Optimize lucide-react imports for tree shaking
       'lucide-react': 'lucide-react/dist/esm/lucide-react',
-    };
-
-    // Add performance optimizations
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      fs: false,
-      path: false,
     };
 
     return config;
@@ -214,10 +181,6 @@ const nextConfig: NextConfig = {
       'lucide-react', 
       '@radix-ui/react-dialog', 
       '@radix-ui/react-label',
-      '@radix-ui/react-navigation-menu',
-      '@radix-ui/react-select',
-      '@radix-ui/react-separator',
-      '@radix-ui/react-slot'
     ],
   },
 

@@ -1,31 +1,33 @@
-const CACHE_NAME = 'carestia-law-v2';
+const CACHE_NAME = 'carestia-law-mobile-v1';
 const STATIC_CACHE = `${CACHE_NAME}-static`;
 const DYNAMIC_CACHE = `${CACHE_NAME}-dynamic`;
-const IMAGE_CACHE = `${CACHE_NAME}-images`;
 
-// Critical static assets to cache immediately
+// Mobile-optimized: Only cache essential assets
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
   '/favicon.svg',
 ];
 
-// Critical resource patterns
+// Simplified cache patterns for mobile
 const CACHE_PATTERNS = {
   IMAGES: /\.(png|jpg|jpeg|webp|avif|svg|ico)$/,
-  FONTS: /\.(woff|woff2|ttf|eot)$/,
+  FONTS: /\.(woff2)$/, // Only cache woff2 for mobile
   STATIC: /\/_next\/static\//,
   CSS: /\.css$/,
   JS: /\.js$/,
 };
 
-// Install event - cache critical assets only
+// Mobile connection detection
+let isSlowConnection = false;
+
+// Install event - minimal caching for mobile
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installing v2...');
+  console.log('[SW] Installing mobile-optimized version...');
   
   event.waitUntil(
     caches.open(STATIC_CACHE).then((cache) => {
-      console.log('[SW] Caching critical assets');
+      console.log('[SW] Caching essential assets only');
       return cache.addAll(STATIC_ASSETS);
     }).then(() => {
       return self.skipWaiting();
@@ -33,17 +35,15 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Activate event - clean old caches
+// Activate event - aggressive cleanup for mobile storage
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating...');
+  console.log('[SW] Activating mobile-optimized SW...');
   
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheName !== STATIC_CACHE && 
-              cacheName !== DYNAMIC_CACHE && 
-              cacheName !== IMAGE_CACHE) {
+          if (!cacheName.includes(CACHE_NAME)) {
             console.log('[SW] Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
@@ -55,7 +55,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event - optimized caching strategy
+// Fetch event - mobile-optimized strategy
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
@@ -65,42 +65,49 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Handle different resource types
-  if (CACHE_PATTERNS.IMAGES.test(url.pathname)) {
-    event.respondWith(handleImageRequest(request));
+  // Mobile-first routing
+  if (url.pathname === '/') {
+    event.respondWith(handlePageRequest(request));
   } else if (CACHE_PATTERNS.FONTS.test(url.pathname)) {
     event.respondWith(handleFontRequest(request));
   } else if (CACHE_PATTERNS.STATIC.test(url.pathname) || 
              CACHE_PATTERNS.CSS.test(url.pathname) || 
              CACHE_PATTERNS.JS.test(url.pathname)) {
     event.respondWith(handleStaticRequest(request));
-  } else if (url.pathname === '/' || url.pathname.startsWith('/practice-areas')) {
-    event.respondWith(handlePageRequest(request));
+  } else if (CACHE_PATTERNS.IMAGES.test(url.pathname)) {
+    event.respondWith(handleImageRequest(request));
   }
 });
 
-// Cache-first strategy for images
-async function handleImageRequest(request) {
+// Network-first for pages on mobile (faster updates)
+async function handlePageRequest(request) {
   try {
-    const cache = await caches.open(IMAGE_CACHE);
-    const cached = await cache.match(request);
+    // Try network first for fresh content
+    const response = await fetch(request, {
+      // Mobile-optimized fetch options
+      cache: 'no-cache',
+      mode: 'cors',
+      credentials: 'same-origin',
+    });
     
-    if (cached) {
-      return cached;
-    }
-    
-    const response = await fetch(request);
     if (response.ok) {
-      cache.put(request, response.clone());
+      // Only cache on mobile if connection is stable
+      if (!isSlowConnection) {
+        const cache = await caches.open(DYNAMIC_CACHE);
+        cache.put(request, response.clone());
+      }
     }
     return response;
   } catch (error) {
-    console.log('[SW] Image request failed:', error);
-    return new Response('Image not available', { status: 404 });
+    // Fallback to cache only if network fails
+    console.log('[SW] Network failed, trying cache:', error);
+    const cache = await caches.open(DYNAMIC_CACHE);
+    const cached = await cache.match(request);
+    return cached || new Response('Offline', { status: 503 });
   }
 }
 
-// Cache-first strategy for fonts
+// Cache-first for fonts (mobile optimized)
 async function handleFontRequest(request) {
   try {
     const cache = await caches.open(STATIC_CACHE);
@@ -110,28 +117,44 @@ async function handleFontRequest(request) {
       return cached;
     }
     
-    const response = await fetch(request);
+    const response = await fetch(request, {
+      // Mobile optimization: shorter timeout
+      signal: AbortSignal.timeout(5000)
+    });
+    
     if (response.ok) {
       cache.put(request, response.clone());
     }
     return response;
   } catch (error) {
     console.log('[SW] Font request failed:', error);
-    return fetch(request);
+    return fetch(request).catch(() => new Response('Font not available'));
   }
 }
 
-// Cache-first strategy for static assets
+// Stale-while-revalidate for static assets (mobile friendly)
 async function handleStaticRequest(request) {
   try {
     const cache = await caches.open(STATIC_CACHE);
     const cached = await cache.match(request);
     
+    // Mobile: Return cached immediately, update in background
     if (cached) {
+      // Update in background for next time
+      fetch(request).then(response => {
+        if (response.ok && response.status === 200) {
+          cache.put(request, response.clone());
+        }
+      }).catch(() => {}); // Silent fail for background updates
+      
       return cached;
     }
     
-    const response = await fetch(request);
+    // No cache, fetch fresh
+    const response = await fetch(request, {
+      signal: AbortSignal.timeout(8000) // Mobile-friendly timeout
+    });
+    
     if (response.ok) {
       cache.put(request, response.clone());
     }
@@ -142,138 +165,131 @@ async function handleStaticRequest(request) {
   }
 }
 
-// Stale-while-revalidate for pages
-async function handlePageRequest(request) {
+// Network-first for images (mobile data conscious)
+async function handleImageRequest(request) {
   try {
-    const cache = await caches.open(DYNAMIC_CACHE);
+    // For images, check cache first to save mobile data
+    const cache = await caches.open(STATIC_CACHE);
     const cached = await cache.match(request);
     
-    // Fetch in background
-    const fetchPromise = fetch(request).then((response) => {
-      if (response.ok) {
-        cache.put(request, response.clone());
-      }
-      return response;
+    if (cached) {
+      return cached;
+    }
+    
+    // Fetch with mobile-friendly timeout
+    const response = await fetch(request, {
+      signal: AbortSignal.timeout(10000)
     });
     
-    // Return cached version immediately if available
-    return cached || fetchPromise;
-  } catch (error) {
-    console.log('[SW] Page request failed:', error);
-    return fetch(request);
-  }
-}
-
-// Background sync for forms (if needed)
-self.addEventListener('sync', (event) => {
-  if (event.tag === 'contact-form') {
-    event.waitUntil(handleFormSync());
-  }
-});
-
-async function handleFormSync() {
-  // Handle offline form submissions
-  console.log('[SW] Syncing forms...');
-}
-
-// Push notifications for legal updates
-self.addEventListener('push', (event) => {
-  const options = {
-    body: event.data ? event.data.text() : 'New legal update available',
-    icon: '/icons/icon-192x192.png',
-    badge: '/icons/icon-72x72.png',
-    vibrate: [100, 50, 100],
-    data: {
-      dateOfArrival: Date.now(),
-      primaryKey: 1
-    },
-    actions: [
-      {
-        action: 'explore',
-        title: 'Read More',
-        icon: '/icons/checkmark.png'
-      },
-      {
-        action: 'close',
-        title: 'Close',
-        icon: '/icons/close.png'
+    if (response.ok && response.status === 200) {
+      // Only cache images under 500KB on mobile
+      const contentLength = response.headers.get('content-length');
+      if (!contentLength || parseInt(contentLength) < 500000) {
+        cache.put(request, response.clone());
       }
-    ]
-  };
-  
-  event.waitUntil(
-    self.registration.showNotification('Carestia Law Update', options)
-  );
-});
-
-// Handle notification clicks
-self.addEventListener('notificationclick', (event) => {
-  event.notification.close();
-  
-  if (event.action === 'explore') {
-    event.waitUntil(
-      clients.openWindow('/')
-    );
+    }
+    return response;
+  } catch (error) {
+    console.log('[SW] Image request failed:', error);
+    // Return placeholder for failed images
+    return new Response('', { status: 204 });
   }
-});
+}
 
-// Performance monitoring
+// Mobile connection detection
 self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'CONNECTION_CHANGE') {
+    isSlowConnection = event.data.isSlowConnection;
+    console.log('[SW] Connection type updated:', isSlowConnection ? 'slow' : 'fast');
+  }
+  
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
-  
-  if (event.data && event.data.type === 'CACHE_PERFORMANCE') {
-    // Cache performance metrics
-    console.log('[SW] Performance metrics received:', event.data.metrics);
-  }
 });
 
-// Preload critical resources
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'PRELOAD_RESOURCES') {
-    const { resources } = event.data;
-    
-    event.waitUntil(
-      caches.open(STATIC_CACHE).then((cache) => {
-        return Promise.all(
-          resources.map((resource) => {
-            return fetch(resource).then((response) => {
-              if (response.status === 200) {
-                return cache.put(resource, response);
-              }
-            }).catch((error) => {
-              console.error('[SW] Preload failed for:', resource, error);
-            });
-          })
-        );
-      })
-    );
-  }
-});
-
-// Cache management
+// Mobile-optimized cache cleanup
 async function cleanupCaches() {
-  const caches = await caches.keys();
-  const maxAge = 7 * 24 * 60 * 60 * 1000; // 7 days
-  
-  for (const cacheName of caches) {
-    const cache = await caches.open(cacheName);
-    const requests = await cache.keys();
+  try {
+    const cacheNames = await caches.keys();
+    const maxCacheSize = 10 * 1024 * 1024; // 10MB limit for mobile
+    const maxAge = 3 * 24 * 60 * 60 * 1000; // 3 days for mobile
     
-    for (const request of requests) {
-      const response = await cache.match(request);
-      const dateHeader = response?.headers.get('date');
+    for (const cacheName of cacheNames) {
+      if (!cacheName.includes(CACHE_NAME)) continue;
       
-      if (dateHeader) {
-        const age = Date.now() - new Date(dateHeader).getTime();
-        if (age > maxAge) {
-          await cache.delete(request);
+      const cache = await caches.open(cacheName);
+      const requests = await cache.keys();
+      
+      // Remove old entries
+      for (const request of requests) {
+        const response = await cache.match(request);
+        const dateHeader = response?.headers.get('date');
+        
+        if (dateHeader) {
+          const age = Date.now() - new Date(dateHeader).getTime();
+          if (age > maxAge) {
+            await cache.delete(request);
+          }
         }
       }
     }
+  } catch (error) {
+    console.log('[SW] Cache cleanup failed:', error);
   }
 }
 
-// Run cleanup periodically
-setInterval(cleanupCaches, 24 * 60 * 60 * 1000); // Daily cleanup 
+// Aggressive cleanup for mobile storage
+setInterval(cleanupCaches, 6 * 60 * 60 * 1000); // Every 6 hours
+
+// Mobile-specific performance optimization
+self.addEventListener('beforeinstallprompt', (event) => {
+  console.log('[SW] PWA install prompt ready');
+  // Let the app handle the install prompt
+});
+
+// Mobile-friendly error handling
+self.addEventListener('error', (event) => {
+  console.error('[SW] Error:', event.error);
+});
+
+// Minimal push notification support for mobile
+self.addEventListener('push', (event) => {
+  if (!event.data) return;
+  
+  const options = {
+    body: event.data.text(),
+    icon: '/favicon.svg',
+    badge: '/favicon.svg',
+    vibrate: [100, 50, 100],
+    requireInteraction: false, // Don't require interaction on mobile
+    silent: false,
+    data: {
+      timestamp: Date.now()
+    }
+  };
+  
+  event.waitUntil(
+    self.registration.showNotification('Carestia Law', options)
+  );
+});
+
+// Handle notification clicks efficiently
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  
+  event.waitUntil(
+    clients.matchAll().then(clientList => {
+      // Focus existing tab if available
+      for (const client of clientList) {
+        if (client.url === '/' && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      // Open new tab if no existing tab
+      if (clients.openWindow) {
+        return clients.openWindow('/');
+      }
+    })
+  );
+}); 

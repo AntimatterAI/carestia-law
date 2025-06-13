@@ -3,25 +3,25 @@ import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { AnalyticsWrapper } from '@/components/layout/analytics-wrapper';
 
-// Optimized font loading - reduce font loading impact
+// Mobile-optimized font loading
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
   preload: true,
   fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
-  // Reduce font weights for faster loading
-  weight: ['400', '500', '600', '700'],
+  // Mobile-first: Only essential weights
+  weight: ['400', '600'],
 });
 
 const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-playfair',
-  preload: true,
+  preload: false, // Don't preload on mobile to save bandwidth
   fallback: ['Georgia', 'Times New Roman', 'serif'],
-  // Reduce font weights for faster loading
-  weight: ['400', '600', '700'],
+  // Mobile-first: Minimal weights
+  weight: ['600'],
 });
 
 export const viewport: Viewport = {
@@ -121,8 +121,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* Critical resource hints */}
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        {/* Critical resource hints - mobile optimized */}
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         
@@ -130,16 +129,14 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/favicon.svg" />
         
-        {/* Critical CSS for immediate rendering */}
+        {/* Minimal critical CSS for mobile-first performance */}
         <style dangerouslySetInnerHTML={{
           __html: `
-            *{box-sizing:border-box}
-            html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-            body{font-family:var(--font-inter),-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6;margin:0;padding:0;background:#fff;color:#111827}
-            .hero-section{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(135deg,#000,#1a1a1a,#000)}
-            img,video,iframe{max-width:100%;height:auto;display:block}
-            .btn-modern-primary{display:inline-flex;align-items:center;justify-content:center;padding:1rem 2rem;font-weight:700;font-size:1.125rem;border-radius:0.5rem;background:linear-gradient(to right,#facc15,#eab308);color:#000;transition:transform 0.2s ease-out}
-            .btn-modern-secondary{display:inline-flex;align-items:center;justify-content:center;padding:1rem 2rem;font-weight:700;font-size:1.125rem;border-radius:0.5rem;border:2px solid #facc15;color:#facc15;background:transparent;transition:all 0.2s ease-out}
+            *{box-sizing:border-box;margin:0;padding:0}
+            html{-webkit-text-size-adjust:100%}
+            body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.6;background:#fff;color:#111}
+            .hero-section{min-height:100vh;background:#000}
+            img{max-width:100%;height:auto;display:block}
           `
         }} />
         
@@ -159,7 +156,7 @@ export default function RootLayout({
           {children}
         </div>
         
-        {/* Deferred analytics to prevent blocking */}
+        {/* Mobile-optimized analytics loading */}
         <AnalyticsWrapper />
       </body>
     </html>
