@@ -1,5 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @custom-variant dark (&:is(.dark *));
 
@@ -156,29 +157,29 @@
   /* Modern button styles */
   .btn-modern-primary {
     @apply inline-flex items-center justify-center px-8 py-4 font-bold text-lg rounded-lg;
-    @apply bg-gradient-to-r from-yellow-400 to-yellow-600 text-black;
+    @apply bg-gradient-to-r from-amber-400 to-amber-500 text-black;
     @apply transition-transform duration-200 ease-out;
-    @apply hover:from-yellow-500 hover:to-yellow-700 hover:-translate-y-0.5;
-    @apply focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2;
+    @apply hover:from-amber-500 hover:to-amber-600 hover:-translate-y-0.5;
+    @apply focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2;
   }
   
   .btn-modern-secondary {
     @apply inline-flex items-center justify-center px-8 py-4 font-bold text-lg rounded-lg;
-    @apply border-2 border-yellow-400 text-yellow-400 bg-transparent;
+    @apply border-2 border-amber-400 text-amber-300 bg-transparent;
     @apply transition-all duration-200 ease-out;
-    @apply hover:bg-yellow-400 hover:text-black hover:-translate-y-0.5;
-    @apply focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2;
+    @apply hover:bg-amber-400 hover:text-black hover:-translate-y-0.5;
+    @apply focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2;
   }
   
   /* Modern card styles */
   .card-modern {
     @apply bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300;
-    @apply border border-gray-100 hover:border-yellow-200;
+    @apply border border-gray-100 hover:border-amber-200;
   }
   
   .card-modern-dark {
     @apply bg-black text-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300;
-    @apply border border-gray-800 hover:border-yellow-400;
+    @apply border border-gray-800 hover:border-amber-400;
   }
 
   /* Optimized Trust Cards */
@@ -214,7 +215,7 @@
 
 /* Focus states for accessibility */
 .focus-visible:focus {
-  outline: 2px solid #FFD700;
+  outline: 2px solid #F59E0B;
   outline-offset: 2px;
 }
 
@@ -342,22 +343,6 @@ img, video, iframe {
   max-width: 100%;
   height: auto;
   display: block;
-}
-
-/* Loading animations */
-@keyframes skeleton-loading {
-  0% { 
-    background-position: 200% 0; 
-  }
-  100% { 
-    background-position: -200% 0; 
-  }
-}
-
-.loading-skeleton {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: skeleton-loading 1.5s infinite;
 }
 
 /* Modern animations for 2025 */
@@ -503,33 +488,41 @@ img, video, iframe {
   gap: 1rem;
 }
 
-/* Smooth scrolling optimizations */
-.smooth-scroll {
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
+.grid-auto-fill {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
 }
 
-/* Dark mode support (if needed later) */
+/* Smooth scroll for better UX */
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* Auto dark mode based on system preference */
 @media (prefers-color-scheme: dark) {
   .auto-dark {
-    color-scheme: dark;
+    background-color: #1a1a1a;
+    color: #ffffff;
   }
 }
 
-/* Mobile-first: NO animations on small screens (EXCEPT mobile menu) */
+/* Mobile-first responsive optimizations */
 @media (max-width: 767px) {
   *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *),
-  *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *)::before,
-  *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *)::after {
-    animation-duration: 0ms !important;
-    animation-delay: 0ms !important;
-    transition-duration: 0ms !important;
-    transition-delay: 0ms !important;
+  *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *):before,
+  *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *):after {
+    animation-duration: 0.1s !important;
+    transition-duration: 0.1s !important;
+  }
+  
+  .btn-modern-primary,
+  .btn-modern-secondary {
     transform: none !important;
   }
 }
 
-/* Desktop animations only */
+/* Tablet and desktop specific animations */
 @media (min-width: 768px) {
   @keyframes shimmer {
     0% { transform: translateX(-100%); }
@@ -551,13 +544,15 @@ img, video, iframe {
       transform: translateY(0);
     }
   }
-  
+
   .skeleton {
-    animation: shimmer 1.5s infinite;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
   }
 }
 
-/* Reduced motion support */
+/* Reduced motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -572,14 +567,13 @@ img, video, iframe {
   }
 }
 
-/* Loading skeleton */
 .skeleton {
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
   border-radius: 4px;
 }
 
-/* Performance optimizations */
 .gpu-accelerated {
   transform: translateZ(0);
   will-change: transform;
