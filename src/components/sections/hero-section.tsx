@@ -88,7 +88,7 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
       </div>
 
       {/* Hero Content - Mobile Optimized */}
-      <div className="relative z-10 container max-w-7xl mx-auto px-4 py-12 md:py-20">
+      <div className="relative z-10 container max-w-7xl mx-auto px-4 py-12 md:py-20 pb-20 md:pb-32">
         <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
           
           {/* Main Content */}

@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -67,12 +65,13 @@
   }
 
   * {
-    @apply border-gray-200;
+    border-color: theme(colors.gray.200);
     box-sizing: border-box;
   }
   
   body {
-    @apply bg-white text-gray-900;
+    background-color: theme(colors.white);
+    color: theme(colors.gray.900);
     font-family: var(--font-inter);
     line-height: 1.6;
     margin: 0;
@@ -156,41 +155,97 @@
   
   /* Modern button styles */
   .btn-modern-primary {
-    @apply inline-flex items-center justify-center px-8 py-4 font-bold text-lg rounded-lg;
-    @apply bg-gradient-to-r from-amber-400 to-amber-500 text-black;
-    @apply transition-transform duration-200 ease-out;
-    @apply hover:from-amber-500 hover:to-amber-600 hover:-translate-y-0.5;
-    @apply focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    font-weight: 700;
+    font-size: 1.125rem;
+    border-radius: 0.5rem;
+    background: linear-gradient(to right, theme(colors.amber.400), theme(colors.amber.500));
+    color: theme(colors.black);
+    transition: transform 0.2s ease-out;
+  }
+  
+  .btn-modern-primary:hover {
+    background: linear-gradient(to right, theme(colors.amber.500), theme(colors.amber.600));
+    transform: translateY(-0.125rem);
+  }
+  
+  .btn-modern-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px theme(colors.amber.400), 0 0 0 4px theme(colors.amber.400 / 0.5);
   }
   
   .btn-modern-secondary {
-    @apply inline-flex items-center justify-center px-8 py-4 font-bold text-lg rounded-lg;
-    @apply border-2 border-amber-400 text-amber-300 bg-transparent;
-    @apply transition-all duration-200 ease-out;
-    @apply hover:bg-amber-400 hover:text-black hover:-translate-y-0.5;
-    @apply focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    font-weight: 700;
+    font-size: 1.125rem;
+    border-radius: 0.5rem;
+    border: 2px solid theme(colors.amber.400);
+    color: theme(colors.amber.300);
+    background: transparent;
+    transition: all 0.2s ease-out;
+  }
+  
+  .btn-modern-secondary:hover {
+    background-color: theme(colors.amber.400);
+    color: theme(colors.black);
+    transform: translateY(-0.125rem);
+  }
+  
+  .btn-modern-secondary:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px theme(colors.amber.400), 0 0 0 4px theme(colors.amber.400 / 0.5);
   }
   
   /* Modern card styles */
   .card-modern {
-    @apply bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300;
-    @apply border border-gray-100 hover:border-amber-200;
+    background-color: theme(colors.white);
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    transition: all 0.3s;
+    border: 1px solid theme(colors.gray.100);
+  }
+  
+  .card-modern:hover {
+    box-shadow: 0 25px 25px -5px rgb(0 0 0 / 0.1), 0 20px 10px -6px rgb(0 0 0 / 0.1);
+    border-color: theme(colors.amber.200);
   }
   
   .card-modern-dark {
-    @apply bg-black text-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300;
-    @apply border border-gray-800 hover:border-amber-400;
+    background-color: theme(colors.black);
+    color: theme(colors.white);
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    transition: all 0.3s;
+    border: 1px solid theme(colors.gray.800);
+  }
+  
+  .card-modern-dark:hover {
+    box-shadow: 0 25px 25px -5px rgb(0 0 0 / 0.1), 0 20px 10px -6px rgb(0 0 0 / 0.1);
+    border-color: theme(colors.amber.400);
   }
 
   /* Optimized Trust Cards */
   .trust-card {
-    @apply rounded-xl p-8 transition-colors duration-200;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    transition: color 0.2s;
     contain: layout style;
   }
   
   /* Hero Section Container */
   .hero-section {
-    @apply relative min-h-screen flex items-center justify-center overflow-hidden;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
     contain: layout style paint;
   }
 }
@@ -343,142 +398,6 @@ img, video, iframe {
   max-width: 100%;
   height: auto;
   display: block;
-}
-
-/* Modern animations for 2025 */
-@keyframes float-gentle {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes pulse-gold {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
-}
-
-@keyframes slide-up {
-  from { 
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to { 
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-float {
-  animation: float-gentle 3s ease-in-out infinite;
-}
-
-.animate-pulse-gold {
-  animation: pulse-gold 2s ease-in-out infinite;
-}
-
-.animate-slide-up {
-  animation: slide-up 0.6s ease-out;
-}
-
-/* Optimize animations for reduced motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  
-  html {
-    scroll-behavior: auto;
-  }
-  
-  .btn-modern-primary,
-  .btn-modern-secondary {
-    transform: none !important;
-  }
-}
-
-/* Hardware acceleration for performance */
-.gpu-accelerated {
-  transform: translateZ(0);
-  will-change: transform;
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  .bg-gradient-to-r {
-    background: #000 !important;
-  }
-  
-  .text-gray-600 {
-    color: #000 !important;
-  }
-  
-  .border-gray-300 {
-    border-color: #000 !important;
-  }
-}
-
-/* Print optimizations */
-@media print {
-  * {
-    color: #000 !important;
-    background: #fff !important;
-    box-shadow: none !important;
-  }
-  
-  .no-print {
-    display: none !important;
-  }
-  
-  h1, h2, h3 {
-    page-break-after: avoid;
-  }
-  
-  .page-break {
-    page-break-before: always;
-  }
-}
-
-/* Performance optimization for large lists */
-.virtual-scroll {
-  contain: layout style paint;
-}
-
-/* Optimize text rendering */
-.optimize-text {
-  text-rendering: optimizeLegibility;
-  font-variant-ligatures: common-ligatures;
-  font-feature-settings: "liga" 1, "calt" 1;
-}
-
-/* Intersection observer optimizations */
-.lazy-load {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.lazy-load.loaded {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Responsive image containers */
-.aspect-ratio-container {
-  position: relative;
-  width: 100%;
-  height: 0;
-}
-
-.aspect-ratio-container img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 /* Modern CSS Grid optimizations */
