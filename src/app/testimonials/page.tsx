@@ -29,7 +29,7 @@ const testimonialsStructuredData = {
   "@type": "WebPage",
   "name": "Client Testimonials - Carestia Law",
   "description": "Real testimonials from satisfied clients who received justice and compensation through Carestia Law.",
-  "url": "https://carestialaw.com/testimonials",
+  "url": "https://www.carcrashatl.com/testimonials",
   "mainEntity": {
     "@type": "Review",
     "name": "Client Reviews for Carestia Law",

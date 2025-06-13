@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: PracticeAreaPageProps): Promi
 
   const pageTitle = `${practiceArea.title} Attorney | Carestia Law`;
   const pageDescription = practiceArea.shortDescription;
-  const pageUrl = `https://carestialaw.com/practice-areas/${slug}`;
+  const pageUrl = `https://www.carcrashatl.com/practice-areas/${slug}`;
 
   return {
     title: pageTitle,

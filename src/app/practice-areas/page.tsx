@@ -32,7 +32,7 @@ const practiceAreasStructuredData = {
   "@type": "WebPage",
   "name": "Practice Areas - Carestia Law",
   "description": "Comprehensive legal services including personal injury, medical malpractice, and more.",
-  "url": "https://carestialaw.com/practice-areas",
+  "url": "https://www.carcrashatl.com/practice-areas",
   "mainEntity": {
     "@type": "LegalService",
     "name": "Carestia Law Practice Areas",

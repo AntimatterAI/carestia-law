@@ -36,21 +36,21 @@ export const viewport: Viewport = {
 
 // Comprehensive SEO metadata for perfect scores
 export const metadata: Metadata = {
-  metadataBase: new URL('https://carestialaw.com'),
+  metadataBase: new URL('https://www.carcrashatl.com'),
   title: {
     default: 'Carestia Law - Expert Legal Representation',
     template: '%s | Carestia Law'
   },
   description: 'Leading law firm providing expert legal representation with decades of courtroom success. Specializing in personal injury, criminal defense, and civil litigation.',
   keywords: [
-    'law firm',
-    'attorney',
-    'legal representation',
-    'personal injury',
-    'criminal defense',
-    'civil litigation',
-    'experienced lawyer',
-    'courtroom success'
+    'personal injury lawyer',
+    'legal representation', 
+    'car accident attorney',
+    'medical malpractice lawyer',
+    'Georgia attorney',
+    'Atlanta lawyer',
+    'experienced lawyers',
+    'free consultation'
   ],
   authors: [{ name: 'Carestia Law' }],
   creator: 'Carestia Law',
@@ -63,40 +63,43 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://carestialaw.com',
+    url: 'https://www.carcrashatl.com',
     siteName: 'Carestia Law',
     title: 'Carestia Law - Expert Legal Representation',
     description: 'Leading law firm providing expert legal representation with decades of courtroom success.',
     images: [
       {
-        url: '/images/og-default.jpg',
+        url: '/images/og-social.png',
         width: 1200,
         height: 630,
-        alt: 'Carestia Law - Expert Legal Representation'
-      }
-    ]
+        alt: 'Carestia Law - Expert Legal Representation',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Carestia Law - Expert Legal Representation',
     description: 'Leading law firm providing expert legal representation with decades of courtroom success.',
-    images: ['/images/og-default.jpg']
+    images: ['/images/og-social.png'],
+    creator: '@CarestiaLaw',
+    site: '@CarestiaLaw',
+  },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
   },
   robots: {
     index: true,
     follow: true,
-    nocache: false,
     googleBot: {
       index: true,
       follow: true,
-      noimageindex: false,
       'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
   },
   alternates: {
-    canonical: 'https://carestialaw.com'
+    canonical: 'https://www.carcrashatl.com'
   },
   category: 'Legal Services',
   classification: 'Law Firm',

@@ -36,10 +36,10 @@ User-agent: MegaIndex
 Disallow: /
 
 # Host directive
-Host: https://carestialaw.com
+Host: https://www.carcrashatl.com
 
 # Sitemap location
-Sitemap: https://carestialaw.com/sitemap.xml
+Sitemap: https://www.carcrashatl.com/sitemap.xml
 
 # Important pages for legal business
 Allow: /about

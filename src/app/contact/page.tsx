@@ -27,7 +27,7 @@ const contactPageStructuredData = {
   "@type": "ContactPage",
   "name": "Contact Carestia Law",
   "description": "Contact page for Carestia Law - experienced attorneys providing free consultations",
-  "url": "https://carestialaw.com/contact",
+  "url": "https://www.carcrashatl.com/contact",
   "mainEntity": {
     "@type": "LegalService",
     "name": "Carestia Law",
