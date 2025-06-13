@@ -311,9 +311,9 @@ async function logSubmission(data: ContactFormData, ip: string): Promise<string>
 export async function POST(request: NextRequest) {
   try {
     // Get client IP for rate limiting and logging
-    const clientIP = request.ip || 
-                    request.headers.get('x-forwarded-for') || 
+    const clientIP = request.headers.get('x-forwarded-for') || 
                     request.headers.get('x-real-ip') || 
+                    request.headers.get('cf-connecting-ip') ||
                     'unknown';
 
     // Rate limiting - max 3 submissions per hour per IP
