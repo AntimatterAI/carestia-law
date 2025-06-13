@@ -90,11 +90,11 @@ export function PracticeAreaTemplate({ practiceArea, structuredData }: PracticeA
                 <div className="relative">
                   <div className="aspect-[4/3] bg-gradient-to-br from-gold-champagne to-gold-rich rounded-2xl shadow-2xl flex items-center justify-center">
                     <div className="text-center p-8">
-                      <div className="w-24 h-24 bg-gold-rich/20 border-2 border-gold-rich rounded-full flex items-center justify-center mx-auto mb-6">
+                      <div className="w-24 h-24 bg-gold-rich/20 border-2 border-black rounded-full flex items-center justify-center mx-auto mb-6">
                         <Scale className="w-12 h-12 text-black" />
                       </div>
-                      <h3 className="font-bold text-xl mb-2 text-gold-rich">Expert Legal Advocacy</h3>
-                      <p className="text-sm opacity-80 text-gold-rich">Dedicated to your success</p>
+                      <h3 className="font-bold text-xl mb-2 text-black">Expert Legal Advocacy</h3>
+                      <p className="text-sm opacity-80 text-black">Dedicated to your success</p>
                     </div>
                   </div>
                 </div>
