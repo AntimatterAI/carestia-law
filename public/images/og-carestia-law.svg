@@ -1,0 +1,50 @@
+<!-- Open Graph Image for Carestia Law - 1200x630 -->
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a1a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFA500;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)"/>
+  
+  <!-- Legal Scale Icon -->
+  <g transform="translate(200, 200)">
+    <!-- Scale base -->
+    <rect x="110" y="200" width="10" height="30" fill="url(#goldGrad)"/>
+    <!-- Scale beam -->
+    <rect x="60" y="195" width="120" height="8" fill="url(#goldGrad)" rx="4"/>
+    <!-- Left scale pan -->
+    <ellipse cx="80" cy="180" rx="25" ry="8" fill="none" stroke="url(#goldGrad)" stroke-width="3"/>
+    <line x1="55" y1="180" x2="105" y2="180" stroke="url(#goldGrad)" stroke-width="2"/>
+    <line x1="80" y1="188" x2="80" y2="195" stroke="url(#goldGrad)" stroke-width="2"/>
+    <!-- Right scale pan -->
+    <ellipse cx="150" cy="180" rx="25" ry="8" fill="none" stroke="url(#goldGrad)" stroke-width="3"/>
+    <line x1="125" y1="180" x2="175" y2="180" stroke="url(#goldGrad)" stroke-width="2"/>
+    <line x1="150" y1="188" x2="150" y2="195" stroke="url(#goldGrad)" stroke-width="2"/>
+  </g>
+  
+  <!-- Company Name -->
+  <text x="600" y="200" font-family="Georgia, serif" font-size="82" fill="url(#goldGrad)" font-weight="bold" text-anchor="middle">CARESTIA LAW</text>
+  
+  <!-- Tagline -->
+  <text x="600" y="260" font-family="Arial, sans-serif" font-size="36" fill="#FFFFFF" text-anchor="middle">Expert Legal Representation</text>
+  <text x="600" y="310" font-family="Arial, sans-serif" font-size="32" fill="#CCCCCC" text-anchor="middle">Experienced Attorneys • Proven Results</text>
+  
+  <!-- Call to Action -->
+  <rect x="450" y="380" width="300" height="70" fill="url(#goldGrad)" rx="12"/>
+  <text x="600" y="425" font-family="Arial, sans-serif" font-size="28" fill="#000000" font-weight="bold" text-anchor="middle">Free Consultation</text>
+  
+  <!-- Phone Number -->
+  <text x="600" y="480" font-family="Arial, sans-serif" font-size="24" fill="url(#goldGrad)" text-anchor="middle">(404) 844-2799</text>
+  
+  <!-- Website -->
+  <text x="600" y="520" font-family="Arial, sans-serif" font-size="22" fill="#FFFFFF" text-anchor="middle">carestialaw.com</text>
+</svg> 

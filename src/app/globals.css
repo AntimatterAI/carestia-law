@@ -24,11 +24,6 @@
     --border: oklch(0.9 0 0);
     --input: oklch(0.9 0 0);
     --ring: oklch(0.15 0 0);
-    --chart-1: oklch(0.452 0.237 245.091);
-    --chart-2: oklch(0.625 0.201 251.069);
-    --chart-3: oklch(0.666 0.126 104.624);
-    --chart-4: oklch(0.691 0.186 65.778);
-    --chart-5: oklch(0.638 0.229 38.833);
     --radius: 0.5rem;
 
     /* Custom Law Firm Color Palette - Modern 2025 */
@@ -465,4 +460,60 @@ input, textarea, select {
   height: 2.5rem;
   width: 6rem;
   border-radius: 0.375rem;
+}
+
+/* Critical animations only */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes slide-up {
+  from { 
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Loading skeleton for better UX */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* Performance optimizations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
 }

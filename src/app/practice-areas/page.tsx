@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Practice Areas - Expert Legal Representation | Carestia Law',
-  description: 'Comprehensive legal services including personal injury, medical malpractice, car accidents, and more. Experienced attorneys fighting for your rights in NY & NJ.',
+  description: 'Comprehensive legal services including personal injury, medical malpractice, car accidents, and more. Experienced attorneys fighting for your rights in Georgia.',
   keywords: [
     'practice areas',
     'legal services',
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     'sexual harassment',
     'negligent security',
     'workers compensation',
-    'New York attorneys',
-    'New Jersey lawyers'
+    'Georgia attorneys',
+    'Atlanta lawyers'
   ],
   openGraph: {
     title: 'Practice Areas - Expert Legal Representation | Carestia Law',

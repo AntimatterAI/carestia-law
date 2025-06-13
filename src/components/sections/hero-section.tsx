@@ -306,7 +306,7 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
                 
                 <div className="flex items-center space-x-3 text-gold-rich">
                   <Shield className="h-6 w-6" aria-hidden="true" />
-                  <span className="text-lg font-semibold">Licensed in New York & New Jersey</span>
+                  <span className="text-lg font-semibold">Licensed in Georgia</span>
                 </div>
               </div>
 

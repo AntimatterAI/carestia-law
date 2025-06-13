@@ -1,5 +1,10 @@
 import type { NextConfig } from "next";
 
+// Bundle analyzer configuration
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
 const nextConfig: NextConfig = {
   // Skip ESLint during build for deployment
   eslint: {
@@ -124,9 +129,30 @@ const nextConfig: NextConfig = {
             name: 'vendors',
             chunks: 'all',
           },
+          // Separate chunk for lucide-react
+          lucide: {
+            test: /[\\/]node_modules[\\/]lucide-react[\\/]/,
+            name: 'lucide',
+            chunks: 'all',
+            priority: 10,
+          },
+          // Separate chunk for Radix UI components
+          radix: {
+            test: /[\\/]node_modules[\\/]@radix-ui[\\/]/,
+            name: 'radix',
+            chunks: 'all',
+            priority: 10,
+          },
         },
       };
     }
+
+    // Optimize imports
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      // Tree-shake lucide-react
+      'lucide-react': 'lucide-react/dist/cjs/lucide-react',
+    };
 
     return config;
   },
@@ -135,13 +161,7 @@ const nextConfig: NextConfig = {
   serverExternalPackages: [],
 
   // Experimental features for performance
-  experimental: {
-    // Optimize CSS
-    optimizeCss: true,
-    
-    // Enable gzip compression
-    gzipSize: true,
-  },
+  experimental: {},
 
   // Output configuration for production
   output: 'standalone',
@@ -150,4 +170,4 @@ const nextConfig: NextConfig = {
   transpilePackages: ['lucide-react'],
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);

@@ -42,14 +42,7 @@ export function PracticeAreasSection() {
                 <Card className="h-full bg-white hover:bg-gray-50/50 transition-colors duration-300 relative overflow-hidden">
                   <div className="p-8 h-full flex flex-col">
                     
-                    {/* Featured Badge for first few items */}
-                    {index < 3 && (
-                      <div className="absolute top-4 right-4">
-                        <Badge className="bg-yellow-100 text-yellow-800 border-yellow-300">
-                          Featured
-                        </Badge>
-                      </div>
-                    )}
+
                     
                     {/* Icon */}
                     <div className="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center mb-6">

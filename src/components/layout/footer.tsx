@@ -5,8 +5,7 @@ import {
   Mail, 
   MapPin, 
   Clock, 
-  Facebook, 
-  Twitter, 
+  Instagram,
   Linkedin,
   ExternalLink,
   ArrowUpRight 
@@ -22,6 +21,7 @@ interface LinkItem {
 
 interface ContactInfo {
   phone: string;
+  fax?: string;
   email: string;
   address: {
     street: string;
@@ -61,25 +61,25 @@ const legalLinks: LinkItem[] = [
 ];
 
 const contactInfo: ContactInfo = {
-  phone: '(555) 123-4567',
+  phone: '(404) 844-2799',
+  fax: '(404) 844-2796',
   email: 'info@carestialaw.com',
   address: {
-    street: '123 Main Street, Suite 400',
-    city: 'New York',
-    state: 'NY',
-    zip: '10001'
+    street: '3500 Lenox Rd, Suite 1500',
+    city: 'Atlanta',
+    state: 'GA',
+    zip: '30326'
   },
   hours: {
     weekdays: 'Monday - Friday: 8:00 AM - 6:00 PM',
     saturday: 'Saturday: 9:00 AM - 2:00 PM',
     sunday: 'Sunday: By Appointment Only'
   },
-  mapUrl: 'https://maps.google.com/?q=123+Main+Street+New+York+NY+10001'
+  mapUrl: 'https://maps.google.com/?q=3500+Lenox+Rd+Suite+1500+Atlanta+GA+30326'
 };
 
 const socialLinks: SocialLink[] = [
-  { name: 'Facebook', href: 'https://facebook.com/carestialaw', icon: Facebook },
-  { name: 'Twitter', href: 'https://twitter.com/carestialaw', icon: Twitter },
+  { name: 'Instagram', href: 'https://www.instagram.com/p/DJ4kRawN7LF/', icon: Instagram },
   { name: 'LinkedIn', href: 'https://linkedin.com/company/carestialaw', icon: Linkedin },
 ];
 
@@ -189,12 +189,19 @@ export function Footer() {
               {/* Phone */}
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-yellow-400 flex-shrink-0" />
-                <Link
-                  href={`tel:${contactInfo.phone.replace(/[^\d]/g, '')}`}
-                  className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 text-sm hover:underline"
-                >
-                  {contactInfo.phone}
-                </Link>
+                <div className="space-y-1">
+                  <Link
+                    href={`tel:${contactInfo.phone.replace(/[^\d]/g, '')}`}
+                    className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 text-sm hover:underline block"
+                  >
+                    Office: {contactInfo.phone}
+                  </Link>
+                  {contactInfo.fax && (
+                    <div className="text-gray-300 text-sm">
+                      Fax: {contactInfo.fax}
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Email */}
@@ -269,7 +276,7 @@ export function Footer() {
 
             {/* Additional Legal Text */}
             <div className="text-xs text-gray-500 text-center lg:text-right max-w-md">
-              Licensed to practice law in New York. Results may vary depending on your particular facts and legal circumstances.
+              Licensed to practice law in Georgia. Results may vary depending on your particular facts and legal circumstances.
             </div>
           </div>
         </div>

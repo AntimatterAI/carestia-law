@@ -1,9 +1,35 @@
 import { HeroSection } from '@/components/sections/hero-section';
 import { PracticeAreasSection } from '@/components/sections/practice-areas-section';
-import { TestimonialsSection } from '@/components/sections/testimonials-section';
 import { ModernLayout } from '@/components/layout';
 import { generateMetadata, generateLocalBusinessSchema, BASE_URL } from '@/lib/seo';
+import dynamic from 'next/dynamic';
 import type { Metadata } from 'next';
+
+// Lazy load TestimonialsSection since it's below the fold
+const TestimonialsSection = dynamic(
+  () => import('@/components/sections/testimonials-section').then(mod => ({ default: mod.TestimonialsSection })),
+  {
+    loading: () => (
+      <div className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <div className="animate-pulse">
+            <div className="h-8 bg-gray-200 rounded w-64 mx-auto mb-4"></div>
+            <div className="h-4 bg-gray-200 rounded w-96 mx-auto mb-8"></div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="bg-white p-6 rounded-lg shadow-md">
+                  <div className="h-4 bg-gray-200 rounded mb-4"></div>
+                  <div className="h-4 bg-gray-200 rounded mb-4"></div>
+                  <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  }
+);
 
 // SEO Metadata for Homepage
 export const metadata: Metadata = generateMetadata({
@@ -110,22 +136,22 @@ export default function HomePage() {
                     </p>
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-8">
-                    <div className="text-center p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl">
-                      <div className="text-3xl font-bold text-gold-rich mb-2">15+</div>
-                      <div className="text-gray-700 font-medium">Years Experience</div>
+                  <div className="grid grid-cols-2 gap-4 md:gap-8">
+                    <div className="text-center p-4 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl transition-all duration-300 md:hover:shadow-lg md:hover:scale-105">
+                      <div className="text-2xl md:text-3xl font-bold text-gold-rich mb-2">15+</div>
+                      <div className="text-gray-700 font-medium text-sm md:text-base">Years Experience</div>
                     </div>
-                    <div className="text-center p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl">
-                      <div className="text-3xl font-bold text-gold-rich mb-2">500+</div>
-                      <div className="text-gray-700 font-medium">Cases Won</div>
+                    <div className="text-center p-4 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl transition-all duration-300 md:hover:shadow-lg md:hover:scale-105">
+                      <div className="text-2xl md:text-3xl font-bold text-gold-rich mb-2">500+</div>
+                      <div className="text-gray-700 font-medium text-sm md:text-base">Cases Won</div>
                     </div>
-                    <div className="text-center p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl">
-                      <div className="text-3xl font-bold text-gold-rich mb-2">98%</div>
-                      <div className="text-gray-700 font-medium">Client Satisfaction</div>
+                    <div className="text-center p-4 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl transition-all duration-300 md:hover:shadow-lg md:hover:scale-105">
+                      <div className="text-2xl md:text-3xl font-bold text-gold-rich mb-2">98%</div>
+                      <div className="text-gray-700 font-medium text-sm md:text-base">Client Satisfaction</div>
                     </div>
-                    <div className="text-center p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl">
-                      <div className="text-3xl font-bold text-gold-rich mb-2">24/7</div>
-                      <div className="text-gray-700 font-medium">Availability</div>
+                    <div className="text-center p-4 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl transition-all duration-300 md:hover:shadow-lg md:hover:scale-105">
+                      <div className="text-2xl md:text-3xl font-bold text-gold-rich mb-2">24/7</div>
+                      <div className="text-gray-700 font-medium text-sm md:text-base">Availability</div>
                     </div>
                   </div>
                   

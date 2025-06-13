@@ -29,9 +29,13 @@ export async function generateMetadata({ params }: PracticeAreaPageProps): Promi
     };
   }
 
+  const pageTitle = `${practiceArea.title} Attorney | Carestia Law`;
+  const pageDescription = practiceArea.shortDescription;
+  const pageUrl = `https://carestialaw.com/practice-areas/${slug}`;
+
   return {
-    title: `${practiceArea.title} Attorney - Expert Legal Representation`,
-    description: practiceArea.shortDescription,
+    title: pageTitle,
+    description: pageDescription,
     keywords: [
       practiceArea.title.toLowerCase(),
       `${practiceArea.title.toLowerCase()} lawyer`,
@@ -43,6 +47,33 @@ export async function generateMetadata({ params }: PracticeAreaPageProps): Promi
       'experienced attorney',
       'carestia law'
     ].join(', '),
+    openGraph: {
+      title: pageTitle,
+      description: pageDescription,
+      url: pageUrl,
+      siteName: 'Carestia Law',
+      type: 'website',
+      locale: 'en_US',
+      images: [
+        {
+          url: '/images/og-default.jpg',
+          width: 1200,
+          height: 630,
+          alt: `${practiceArea.title} Attorney - Carestia Law`
+        }
+      ]
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: pageTitle,
+      description: pageDescription,
+      images: ['/images/og-default.jpg'],
+      creator: '@CarestiaLaw',
+      site: '@CarestiaLaw'
+    },
+    alternates: {
+      canonical: pageUrl
+    }
   };
 }
 

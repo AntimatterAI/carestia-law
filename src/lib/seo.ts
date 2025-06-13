@@ -8,11 +8,11 @@ export const BASE_URL = process.env.NODE_ENV === 'production'
 // Default SEO configuration
 export const DEFAULT_SEO = {
   title: 'Carestia Law - Experienced Attorneys, Personal Attention',
-  description: 'Expert legal representation in New York & New Jersey with over 15 years experience. Free consultation available 24/7 for personal injury, medical malpractice, and more.',
-  keywords: [
+  description: 'Expert legal representation in Georgia with over 15 years experience. Free consultation available 24/7 for personal injury, medical malpractice, and more.',
+      keywords: [
     'personal injury lawyer',
-    'New York attorney',
-    'New Jersey lawyer',
+    'Georgia attorney',
+    'Atlanta lawyer',
     'medical malpractice',
     'car accident lawyer',
     'legal consultation',
@@ -102,7 +102,7 @@ export function generateLocalBusinessSchema() {
     "@type": "LegalService",
     "name": "Carestia Law",
     "alternateName": "Carestia Law Firm",
-    "description": "Experienced personal injury and medical malpractice attorneys serving New York and New Jersey",
+    "description": "Experienced personal injury and medical malpractice attorneys serving Georgia",
     "url": BASE_URL,
     "logo": `${BASE_URL}/images/logo.png`,
     "image": `${BASE_URL}/images/office-exterior.jpg`,
@@ -115,25 +115,21 @@ export function generateLocalBusinessSchema() {
     },
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "123 Legal Drive",
-      "addressLocality": "New York",
-      "addressRegion": "NY",
-      "postalCode": "10001",
+      "streetAddress": "3500 Lenox Rd, Suite 1500",
+      "addressLocality": "Atlanta",
+      "addressRegion": "GA",
+      "postalCode": "30326",
       "addressCountry": "US"
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": "40.7128",
-      "longitude": "-74.0060"
+      "latitude": "33.8490",
+      "longitude": "-84.3880"
     },
     "areaServed": [
       {
         "@type": "State",
-        "name": "New York"
-      },
-      {
-        "@type": "State", 
-        "name": "New Jersey"
+        "name": "Georgia"
       }
     ],
     "serviceType": [
@@ -217,11 +213,7 @@ export function generatePracticeAreaSchema(practiceArea: {
     "areaServed": [
       {
         "@type": "State",
-        "name": "New York"
-      },
-      {
-        "@type": "State",
-        "name": "New Jersey"
+        "name": "Georgia"
       }
     ],
     "hasOfferCatalog": {
