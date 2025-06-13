@@ -1,0 +1,68 @@
+{
+  "name": "Carestia Law - Expert Legal Representation",
+  "short_name": "Carestia Law",
+  "description": "Experienced attorneys providing personal attention for over 15 years in New York and New Jersey.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#FFD700",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": ["business", "legal"],
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32 48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Free Consultation",
+      "short_name": "Consultation",
+      "description": "Get your free legal consultation",
+      "url": "/contact",
+      "icons": [
+        {
+          "src": "/icon-consultation.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Call Now",
+      "short_name": "Call",
+      "description": "Call Carestia Law directly",
+      "url": "tel:+14048442799",
+      "icons": [
+        {
+          "src": "/icon-phone.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+} 

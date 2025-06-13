@@ -1,26 +1,468 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.15 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.15 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.15 0 0);
+    --primary: oklch(0.15 0 0);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.96 0 0);
+    --secondary-foreground: oklch(0.15 0 0);
+    --muted: oklch(0.96 0 0);
+    --muted-foreground: oklch(0.45 0 0);
+    --accent: oklch(0.96 0 0);
+    --accent-foreground: oklch(0.15 0 0);
+    --destructive: oklch(0.645 0.208 25.331);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.9 0 0);
+    --input: oklch(0.9 0 0);
+    --ring: oklch(0.15 0 0);
+    --chart-1: oklch(0.452 0.237 245.091);
+    --chart-2: oklch(0.625 0.201 251.069);
+    --chart-3: oklch(0.666 0.126 104.624);
+    --chart-4: oklch(0.691 0.186 65.778);
+    --chart-5: oklch(0.638 0.229 38.833);
+    --radius: 0.5rem;
+
+    /* Custom Law Firm Color Palette - Modern 2025 */
+    --black-primary: oklch(0 0 0); /* #000000 */
+    --gold-rich: oklch(0.873 0.16 89.4); /* #FFD700 */
+    --gold-champagne: oklch(0.936 0.035 89.4); /* #F7E7CE */
+    --gold-warm: oklch(0.574 0.08 89.4); /* #B8860B */
+    --gold-metallic: oklch(0.8 0.12 89.4); /* Metallic gold effect */
+    
+    /* Font Variables */
+    --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    --font-playfair: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  }
+
+  .dark {
+    --background: oklch(0.09 0 0);
+    --foreground: oklch(0.9 0 0);
+    --card: oklch(0.09 0 0);
+    --card-foreground: oklch(0.9 0 0);
+    --popover: oklch(0.09 0 0);
+    --popover-foreground: oklch(0.9 0 0);
+    --primary: oklch(0.9 0 0);
+    --primary-foreground: oklch(0.09 0 0);
+    --secondary: oklch(0.14 0 0);
+    --secondary-foreground: oklch(0.9 0 0);
+    --muted: oklch(0.14 0 0);
+    --muted-foreground: oklch(0.64 0 0);
+    --accent: oklch(0.14 0 0);
+    --accent-foreground: oklch(0.9 0 0);
+    --destructive: oklch(0.62 0.236 25.593);
+    --destructive-foreground: oklch(0.9 0 0);
+    --border: oklch(0.14 0 0);
+    --input: oklch(0.14 0 0);
+    --ring: oklch(0.835 0 0);
+    --chart-1: oklch(0.711 0.182 248.972);
+    --chart-2: oklch(0.724 0.152 252.096);
+    --chart-3: oklch(0.749 0.094 105.064);
+    --chart-4: oklch(0.773 0.139 66.319);
+    --chart-5: oklch(0.761 0.17 39.544);
+  }
+
+  * {
+    @apply border-gray-200;
+    box-sizing: border-box;
+  }
+  
+  body {
+    @apply bg-white text-gray-900;
+    font-family: var(--font-inter);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  img, video, iframe {
+    max-width: 100%;
+    height: auto;
+    display: block;
   }
 }
 
+/* Modern Law Firm Design System - 2025 Trends */
+
+/* Custom utility classes for the modern law firm palette */
+@layer utilities {
+  .text-gold-rich {
+    color: oklch(0.873 0.16 89.4);
+  }
+  .text-gold-champagne {
+    color: oklch(0.936 0.035 89.4);
+  }
+  .text-gold-warm {
+    color: oklch(0.574 0.08 89.4);
+  }
+  .text-gold-metallic {
+    color: oklch(0.8 0.12 89.4);
+  }
+  .text-black-primary {
+    color: oklch(0 0 0);
+  }
+  
+  .bg-gold-rich {
+    background-color: oklch(0.873 0.16 89.4);
+  }
+  .bg-gold-champagne {
+    background-color: oklch(0.936 0.035 89.4);
+  }
+  .bg-gold-warm {
+    background-color: oklch(0.574 0.08 89.4);
+  }
+  .bg-gold-metallic {
+    background: linear-gradient(135deg, oklch(0.8 0.12 89.4) 0%, oklch(0.873 0.16 89.4) 100%);
+  }
+  .bg-black-primary {
+    background-color: oklch(0 0 0);
+  }
+  
+  .border-gold-rich {
+    border-color: oklch(0.873 0.16 89.4);
+  }
+  .border-gold-warm {
+    border-color: oklch(0.574 0.08 89.4);
+  }
+  
+  /* Modern gradient backgrounds */
+  .bg-gradient-gold {
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+    position: relative;
+  }
+  
+  .bg-gradient-gold::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(255, 215, 0, 0.1) 50%, transparent 100%);
+    pointer-events: none;
+  }
+  
+  /* Modern button styles */
+  .btn-modern-primary {
+    @apply bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold px-8 py-4 rounded-lg;
+    @apply hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300;
+    @apply shadow-lg hover:shadow-xl transform hover:-translate-y-1;
+  }
+  
+  .btn-modern-secondary {
+    @apply border-2 border-yellow-400 text-yellow-400 font-bold px-8 py-4 rounded-lg;
+    @apply hover:bg-yellow-400 hover:text-black transition-all duration-300;
+    @apply shadow-lg hover:shadow-xl transform hover:-translate-y-1;
+  }
+  
+  /* Modern card styles */
+  .card-modern {
+    @apply bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300;
+    @apply border border-gray-100 hover:border-yellow-200;
+  }
+  
+  .card-modern-dark {
+    @apply bg-black text-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300;
+    @apply border border-gray-800 hover:border-yellow-400;
+  }
+}
+
+/* Performance optimizations */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Prevent layout shifts */
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Loading animations */
+@keyframes shimmer {
+  0% { 
+    transform: translateX(-100%); 
+  }
+  100% { 
+    transform: translateX(100%); 
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% { 
+    background-position: 200% 0; 
+  }
+  100% { 
+    background-position: -200% 0; 
+  }
+}
+
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+/* Modern animations for 2025 */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes slide-up {
+  from { 
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float-gentle 3s ease-in-out infinite;
+}
+
+.animate-pulse-gold {
+  animation: pulse-gold 2s ease-in-out infinite;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out;
+}
+
+/* Optimize animations for reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Hardware acceleration for performance */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Focus states for accessibility */
+.focus-visible:focus {
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .bg-gradient-to-r {
+    background: #000 !important;
+  }
+  
+  .text-gray-600 {
+    color: #000 !important;
+  }
+  
+  .border-gray-300 {
+    border-color: #000 !important;
+  }
+}
+
+/* Print optimizations */
+@media print {
+  * {
+    color: #000 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+  
+  .page-break {
+    page-break-before: always;
+  }
+}
+
+/* Performance optimization for large lists */
+.virtual-scroll {
+  contain: layout style paint;
+}
+
+/* Optimize text rendering */
+.optimize-text {
+  text-rendering: optimizeLegibility;
+  font-variant-ligatures: common-ligatures;
+  font-feature-settings: "liga" 1, "calt" 1;
+}
+
+/* Critical path optimization */
+.above-the-fold {
+  content-visibility: visible;
+}
+
+.below-the-fold {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* Intersection observer optimizations */
+.lazy-load {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.lazy-load.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive image containers */
+.aspect-ratio-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+}
+
+.aspect-ratio-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Modern CSS Grid optimizations */
+.grid-auto-fit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+/* Smooth scrolling optimizations */
+.smooth-scroll {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Button and interactive element optimizations */
+button, a, [role="button"] {
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Form optimizations */
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Dark mode support (if needed later) */
+@media (prefers-color-scheme: dark) {
+  .auto-dark {
+    color-scheme: dark;
+  }
+}
+
+/* Utility classes for performance */
+.contain-layout {
+  contain: layout;
+}
+
+.contain-paint {
+  contain: paint;
+}
+
+.contain-strict {
+  contain: strict;
+}
+
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-scroll {
+  will-change: scroll-position;
+}
+
+/* Loading state utilities */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-text {
+  height: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-text:last-child {
+  margin-bottom: 0;
+  width: 80%;
+}
+
+.skeleton-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+.skeleton-button {
+  height: 2.5rem;
+  width: 6rem;
+  border-radius: 0.375rem;
 }

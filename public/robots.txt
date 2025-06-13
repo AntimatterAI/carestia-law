@@ -1,0 +1,49 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /_next/
+Disallow: /api/
+
+# Allow important SEO files
+Allow: /sitemap.xml
+Allow: /robots.txt
+Allow: /favicon.ico
+
+# Specific crawlers
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots and excessive crawlers
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MegaIndex
+Disallow: /
+
+# Host directive
+Host: https://carestialaw.com
+
+# Sitemap location
+Sitemap: https://carestialaw.com/sitemap.xml
+
+# Important pages for legal business
+Allow: /about
+Allow: /practice-areas/
+Allow: /contact
+Allow: /testimonials
+Allow: /results 
