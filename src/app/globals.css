@@ -1,22 +1,6 @@
-@import "tailwindcss";
-
-@theme {
-  --font-family-sans: 'Inter', system-ui, sans-serif;
-  --font-family-serif: 'Playfair Display', Georgia, serif;
-  
-  --color-gold-rich: #FFD700;
-  --color-gold-champagne: #F7E7CE;
-  --color-gold-warm: #B8860B;
-  --color-gold-metallic: #DAA520;
-  --color-black-primary: #000000;
-  
-  --animate-float-gentle: float-gentle 3s ease-in-out infinite;
-  --animate-pulse-gold: pulse-gold 2s ease-in-out infinite;
-  --animate-slide-up: slide-up 0.6s ease-out;
-  --animate-shimmer: shimmer 1.5s infinite;
-}
-
-@custom-variant dark (&:is(.dark *));
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   :root {
@@ -74,13 +58,12 @@
   }
 
   * {
-    border-color: #e5e7eb;
+    @apply border-gray-200;
     box-sizing: border-box;
   }
   
   body {
-    background-color: #ffffff;
-    color: #111827;
+    @apply bg-white text-gray-900;
     font-family: var(--font-inter);
     line-height: 1.6;
     margin: 0;
@@ -189,97 +172,41 @@
   
   /* Modern button styles */
   .btn-modern-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 2rem;
-    font-weight: 700;
-    font-size: 1.125rem;
-    border-radius: 0.5rem;
-    background: linear-gradient(to right, #fbbf24, #f59e0b);
-    color: #000000;
-    transition: transform 0.2s ease-out;
-  }
-  
-  .btn-modern-primary:hover {
-    background: linear-gradient(to right, #f59e0b, #d97706);
-    transform: translateY(-0.125rem);
-  }
-  
-  .btn-modern-primary:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px #fbbf24, 0 0 0 4px rgba(251, 191, 36, 0.5);
+    @apply inline-flex items-center justify-center px-8 py-4 font-bold text-lg rounded-lg;
+    @apply bg-gradient-to-r from-amber-400 to-amber-500 text-black;
+    @apply transition-transform duration-200 ease-out;
+    @apply hover:from-amber-500 hover:to-amber-600 hover:-translate-y-0.5;
+    @apply focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2;
   }
   
   .btn-modern-secondary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 2rem;
-    font-weight: 700;
-    font-size: 1.125rem;
-    border-radius: 0.5rem;
-    border: 2px solid #fbbf24;
-    color: #fcd34d;
-    background: transparent;
-    transition: all 0.2s ease-out;
-  }
-  
-  .btn-modern-secondary:hover {
-    background-color: #fbbf24;
-    color: #000000;
-    transform: translateY(-0.125rem);
-  }
-  
-  .btn-modern-secondary:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px #fbbf24, 0 0 0 4px rgba(251, 191, 36, 0.5);
+    @apply inline-flex items-center justify-center px-8 py-4 font-bold text-lg rounded-lg;
+    @apply border-2 border-amber-400 text-amber-300 bg-transparent;
+    @apply transition-all duration-200 ease-out;
+    @apply hover:bg-amber-400 hover:text-black hover:-translate-y-0.5;
+    @apply focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2;
   }
   
   /* Modern card styles */
   .card-modern {
-    background-color: #ffffff;
-    border-radius: 0.75rem;
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    transition: all 0.3s;
-    border: 1px solid #f3f4f6;
-  }
-  
-  .card-modern:hover {
-    box-shadow: 0 25px 25px -5px rgb(0 0 0 / 0.1), 0 20px 10px -6px rgb(0 0 0 / 0.1);
-    border-color: #fed7aa;
+    @apply bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300;
+    @apply border border-gray-100 hover:border-amber-200;
   }
   
   .card-modern-dark {
-    background-color: #000000;
-    color: #ffffff;
-    border-radius: 0.75rem;
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    transition: all 0.3s;
-    border: 1px solid #374151;
-  }
-  
-  .card-modern-dark:hover {
-    box-shadow: 0 25px 25px -5px rgb(0 0 0 / 0.1), 0 20px 10px -6px rgb(0 0 0 / 0.1);
-    border-color: #fbbf24;
+    @apply bg-black text-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300;
+    @apply border border-gray-800 hover:border-amber-400;
   }
 
   /* Optimized Trust Cards */
   .trust-card {
-    border-radius: 0.75rem;
-    padding: 2rem;
-    transition: color 0.2s;
+    @apply rounded-xl p-8 transition-colors duration-200;
     contain: layout style;
   }
   
   /* Hero Section Container */
   .hero-section {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    @apply relative min-h-screen flex items-center justify-center overflow-hidden;
     contain: layout style paint;
   }
   
