@@ -24,7 +24,7 @@ export function PracticeAreasSection() {
           </Badge>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-6 leading-tight">
             Comprehensive Legal
-            <span className="block text-yellow-600">Representation</span>
+            <span className="block text-amber-700">Representation</span>
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Our experienced attorneys provide expert legal representation across multiple practice areas, 
@@ -67,8 +67,8 @@ export function PracticeAreasSection() {
                         className="w-full justify-between text-gray-700 hover:text-black font-medium group"
                         asChild
                       >
-                        <Link href={`/practice-areas/${area.slug}`} aria-label={`Learn more about ${area.title}`}>
-                          <span>Learn More</span>
+                        <Link href={`/practice-areas/${area.slug}`}>
+                          <span>{area.title} Details</span>
                           <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                         </Link>
                       </Button>
@@ -118,7 +118,7 @@ export function PracticeAreasSection() {
         {/* Trust Statement */}
         <div className="text-center mt-12 pt-8 border-t border-gray-200">
           <div className="bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-2xl p-8">
-            <Scale className="h-12 w-12 text-yellow-600 mx-auto mb-4" />
+                            <Scale className="h-12 w-12 text-amber-700 mx-auto mb-4" />
             <blockquote className="text-lg font-medium text-gray-800 mb-4">
               We believe every client deserves personalized attention and aggressive representation. 
               Your case is our priority, and your success is our commitment.

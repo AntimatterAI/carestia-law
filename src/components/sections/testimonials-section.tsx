@@ -88,7 +88,7 @@ export function TestimonialsSection() {
           </Badge>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-6 leading-tight">
             What Our Clients Say
-            <span className="block text-yellow-600">About Their Experience</span>
+            <span className="block text-amber-700">About Their Experience</span>
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Real stories from real clients who received the justice and compensation they deserved.
@@ -106,7 +106,7 @@ export function TestimonialsSection() {
             </div>
             
             {/* Star Rating */}
-            <div className="flex justify-center mb-6" aria-label={`${currentTestimonial.rating} out of 5 stars`}>
+            <div className="flex justify-center mb-6" role="img" aria-label={`${currentTestimonial.rating} out of 5 stars`}>
               {renderStars(currentTestimonial.rating)}
             </div>
             
@@ -130,7 +130,7 @@ export function TestimonialsSection() {
                 <div className="font-bold text-lg text-black">
                   {currentTestimonial.clientName}
                 </div>
-                <div className="text-yellow-600 font-semibold">
+                <div className="text-amber-700 font-semibold">
                   {currentTestimonial.caseType}
                 </div>
                 <div className="text-gray-600 text-sm">
@@ -186,19 +186,19 @@ export function TestimonialsSection() {
         {/* Trust Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-16 border-t border-gray-200">
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-yellow-600 mb-2">98%</div>
+            <div className="text-3xl md:text-4xl font-bold text-amber-700 mb-2">98%</div>
             <div className="text-gray-600">Client Satisfaction</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-yellow-600 mb-2">500+</div>
+            <div className="text-3xl md:text-4xl font-bold text-amber-700 mb-2">500+</div>
             <div className="text-gray-600">Cases Won</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-yellow-600 mb-2">$50M+</div>
+            <div className="text-3xl md:text-4xl font-bold text-amber-700 mb-2">$50M+</div>
             <div className="text-gray-600">Recovered</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-yellow-600 mb-2">15+</div>
+            <div className="text-3xl md:text-4xl font-bold text-amber-700 mb-2">15+</div>
             <div className="text-gray-600">Years Experience</div>
           </div>
         </div>

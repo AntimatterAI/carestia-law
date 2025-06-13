@@ -117,9 +117,9 @@ export function Footer() {
 
             {/* Social Media */}
             <div className="space-y-3">
-              <h4 className="text-yellow-400 font-semibold text-sm uppercase tracking-wide">
+              <h3 className="text-yellow-400 font-semibold text-sm uppercase tracking-wide">
                 Follow Us
-              </h4>
+              </h3>
               <div className="flex space-x-3">
                 {socialLinks.map((social) => {
                   const Icon = social.icon;
