@@ -1,16 +1,17 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import { AnalyticsWrapper } from '@/components/layout/analytics-wrapper';
 
-// Optimized font loading with display: swap and preload
+// Optimized font loading - reduce font loading impact
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
   preload: true,
-  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+  // Reduce font weights for faster loading
+  weight: ['400', '500', '600', '700'],
 });
 
 const playfairDisplay = Playfair_Display({
@@ -19,6 +20,8 @@ const playfairDisplay = Playfair_Display({
   variable: '--font-playfair',
   preload: true,
   fallback: ['Georgia', 'Times New Roman', 'serif'],
+  // Reduce font weights for faster loading
+  weight: ['400', '600', '700'],
 });
 
 export const viewport: Viewport = {
@@ -106,104 +109,6 @@ export const metadata: Metadata = {
   referrer: 'origin-when-cross-origin'
 };
 
-// Critical CSS for performance and layout stability
-const criticalCSS = `
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; scroll-behavior: smooth; }
-  body { 
-    font-family: var(--font-inter), system-ui, -apple-system, sans-serif; 
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-  
-  /* Prevent layout shifts and optimize rendering */
-  img, video { 
-    max-width: 100%; 
-    height: auto; 
-    display: block;
-  }
-  
-  /* Reserve space for hero section */
-  .hero-section { 
-    min-height: 100vh; 
-    contain: layout style paint;
-    position: relative;
-  }
-  
-  /* Optimize navigation */
-  .nav-bar { 
-    backdrop-filter: blur(8px); 
-    will-change: transform; 
-    contain: layout;
-    height: 80px; /* Fixed height to prevent CLS */
-  }
-  
-  /* Button optimizations */
-  .cta-button { 
-    transform: translateZ(0); 
-    will-change: transform;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Font loading stability */
-  .font-loading { font-display: swap; }
-  
-  /* Prevent CLS from dynamic content */
-  .trust-card-modern { 
-    min-height: 120px;
-    contain: layout;
-  }
-  
-  /* Grid stability */
-  .practice-grid { 
-    display: grid;
-    gap: 1.5rem;
-    contain: layout;
-  }
-  
-  /* Animation performance */
-  .hero-animate, .scroll-animate {
-    will-change: transform, opacity;
-  }
-  
-  /* Aspect ratio containers */
-  .aspect-ratio { 
-    position: relative; 
-    contain: layout;
-  }
-  .aspect-ratio::before { 
-    content: ''; 
-    display: block; 
-    padding-bottom: var(--aspect-ratio, 56.25%); 
-  }
-  .aspect-ratio > * { 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-  }
-  
-  /* Skeleton loading for better perceived performance */
-  .skeleton {
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-    background-size: 200% 100%;
-    animation: loading 1.5s infinite;
-  }
-  
-  @keyframes loading {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-  }
-  
-  /* Optimize repaints */
-  .gold-gradient-text {
-    contain: layout style;
-  }
-`;
-
 export default function RootLayout({
   children,
 }: {
@@ -216,21 +121,27 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* Favicon - simplified for mobile compatibility */}
+        {/* Critical resource hints */}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        
+        {/* Favicon - optimized */}
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/favicon.svg" />
         
-        {/* Critical CSS for above-the-fold content */}
-        <style dangerouslySetInnerHTML={{ __html: criticalCSS }} />
-        
-        {/* Essential resource hints only */}
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="" />
-        
-        {/* Web app optimizations */}
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        {/* Critical CSS for immediate rendering */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            *{box-sizing:border-box}
+            html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+            body{font-family:var(--font-inter),-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6;margin:0;padding:0;background:#fff;color:#111827}
+            .hero-section{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(135deg,#000,#1a1a1a,#000)}
+            img,video,iframe{max-width:100%;height:auto;display:block}
+            .btn-modern-primary{display:inline-flex;align-items:center;justify-content:center;padding:1rem 2rem;font-weight:700;font-size:1.125rem;border-radius:0.5rem;background:linear-gradient(to right,#facc15,#eab308);color:#000;transition:transform 0.2s ease-out}
+            .btn-modern-secondary{display:inline-flex;align-items:center;justify-content:center;padding:1rem 2rem;font-weight:700;font-size:1.125rem;border-radius:0.5rem;border:2px solid #facc15;color:#facc15;background:transparent;transition:all 0.2s ease-out}
+          `
+        }} />
         
         {/* Performance optimizations */}
         <meta httpEquiv="x-dns-prefetch-control" content="on" />
@@ -240,8 +151,6 @@ export default function RootLayout({
         <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
         <meta httpEquiv="X-Frame-Options" content="DENY" />
         <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
-        
-
       </head>
       
       <body className="antialiased">
@@ -250,9 +159,8 @@ export default function RootLayout({
           {children}
         </div>
         
-        {/* Essential analytics only */}
-        <Analytics />
-        <SpeedInsights />
+        {/* Deferred analytics to prevent blocking */}
+        <AnalyticsWrapper />
       </body>
     </html>
   );

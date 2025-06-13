@@ -1,9 +1,27 @@
-import { HeroSection } from '@/components/sections/hero-section';
-import { PracticeAreasSection } from '@/components/sections/practice-areas-section';
-import { TestimonialsSection } from '@/components/sections/testimonials-section';
+import dynamic from 'next/dynamic';
 import { ModernLayout } from '@/components/layout';
 import { generateMetadata, generateLocalBusinessSchema, BASE_URL } from '@/lib/seo';
 import type { Metadata } from 'next';
+
+// Dynamic imports for better performance - code splitting
+const HeroSection = dynamic(() => import('@/components/sections/hero-section').then(mod => ({ default: mod.HeroSection })), {
+  loading: () => (
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p className="text-white text-lg">Loading...</p>
+      </div>
+    </div>
+  )
+});
+
+const PracticeAreasSection = dynamic(() => import('@/components/sections/practice-areas-section').then(mod => ({ default: mod.PracticeAreasSection })), {
+  loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded-lg"></div>
+});
+
+const TestimonialsSection = dynamic(() => import('@/components/sections/testimonials-section').then(mod => ({ default: mod.TestimonialsSection })), {
+  loading: () => <div className="h-96 bg-gray-50 animate-pulse rounded-lg"></div>
+});
 
 // SEO Metadata for Homepage
 export const metadata: Metadata = generateMetadata({
@@ -86,23 +104,21 @@ export default function HomePage() {
 
       <ModernLayout>
         <main role="main" aria-label="Carestia Law - Expert Legal Representation">
-          {/* Hero Section - Modern 2025 Design */}
-          <HeroSection 
-            className="modern-hero-2025"
-          />
+          {/* Hero Section - Critical above-the-fold content */}
+          <HeroSection className="modern-hero-2025" />
           
-          {/* Practice Areas Section */}
+          {/* Practice Areas Section - Lazy loaded */}
           <PracticeAreasSection />
           
-          {/* About Section - Modern Minimalist */}
-          <section className="py-24 bg-white" aria-label="About Carestia Law">
+          {/* About Section - Optimized inline content */}
+          <section className="py-24 bg-white below-the-fold" aria-label="About Carestia Law">
             <div className="max-w-7xl mx-auto px-4">
               <div className="grid lg:grid-cols-2 gap-16 items-center">
                 <div className="space-y-8">
                   <div className="space-y-6">
                     <h2 className="text-4xl md:text-5xl font-bold text-black leading-tight">
                       Dedicated Legal
-                      <span className="block text-gold-rich">Excellence Since 1998</span>
+                      <span className="block text-yellow-600">Excellence Since 1998</span>
                     </h2>
                     <p className="text-xl text-gray-600 leading-relaxed">
                       For over two decades, Carestia Law has been providing exceptional legal representation 
@@ -111,20 +127,20 @@ export default function HomePage() {
                   </div>
                   
                   <div className="grid grid-cols-2 gap-3 md:gap-8">
-                    <div className="text-center p-3 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg md:rounded-xl md:transition-all md:duration-300 md:hover:shadow-lg md:hover:scale-105">
-                      <div className="text-xl md:text-3xl font-bold text-gold-rich mb-1 md:mb-2">15+</div>
+                    <div className="text-center p-3 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg md:rounded-xl">
+                      <div className="text-xl md:text-3xl font-bold text-yellow-600 mb-1 md:mb-2">15+</div>
                       <div className="text-gray-700 font-medium text-xs md:text-base">Years Experience</div>
                     </div>
-                    <div className="text-center p-3 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg md:rounded-xl md:transition-all md:duration-300 md:hover:shadow-lg md:hover:scale-105">
-                      <div className="text-xl md:text-3xl font-bold text-gold-rich mb-1 md:mb-2">500+</div>
+                    <div className="text-center p-3 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg md:rounded-xl">
+                      <div className="text-xl md:text-3xl font-bold text-yellow-600 mb-1 md:mb-2">500+</div>
                       <div className="text-gray-700 font-medium text-xs md:text-base">Cases Won</div>
                     </div>
-                    <div className="text-center p-3 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg md:rounded-xl md:transition-all md:duration-300 md:hover:shadow-lg md:hover:scale-105">
-                      <div className="text-xl md:text-3xl font-bold text-gold-rich mb-1 md:mb-2">98%</div>
+                    <div className="text-center p-3 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg md:rounded-xl">
+                      <div className="text-xl md:text-3xl font-bold text-yellow-600 mb-1 md:mb-2">98%</div>
                       <div className="text-gray-700 font-medium text-xs md:text-base">Client Satisfaction</div>
                     </div>
-                    <div className="text-center p-3 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg md:rounded-xl md:transition-all md:duration-300 md:hover:shadow-lg md:hover:scale-105">
-                      <div className="text-xl md:text-3xl font-bold text-gold-rich mb-1 md:mb-2">24/7</div>
+                    <div className="text-center p-3 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg md:rounded-xl">
+                      <div className="text-xl md:text-3xl font-bold text-yellow-600 mb-1 md:mb-2">24/7</div>
                       <div className="text-gray-700 font-medium text-xs md:text-base">Availability</div>
                     </div>
                   </div>
@@ -132,13 +148,13 @@ export default function HomePage() {
                   <div className="flex flex-col sm:flex-row gap-4">
                     <a 
                       href="/contact" 
-                      className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-gold-rich to-gold-warm text-black font-bold rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                      className="btn-modern-primary"
                     >
                       Schedule Consultation
                     </a>
                     <a 
                       href="/practice-areas" 
-                      className="inline-flex items-center justify-center px-8 py-4 border-2 border-gold-rich text-gold-warm hover:bg-gold-rich hover:text-black font-bold rounded-lg transition-all duration-300"
+                      className="btn-modern-secondary"
                     >
                       View Practice Areas
                     </a>
@@ -146,7 +162,7 @@ export default function HomePage() {
                 </div>
                 
                 <div className="relative">
-                  <div className="aspect-[4/3] bg-gradient-to-br from-gold-champagne to-gold-rich rounded-2xl shadow-2xl flex items-center justify-center">
+                  <div className="aspect-[4/3] bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-2xl shadow-2xl flex items-center justify-center">
                     <div className="text-center text-black">
                       <div className="w-24 h-24 bg-black/10 rounded-full flex items-center justify-center mx-auto mb-4">
                         <span className="text-4xl">⚖️</span>
@@ -160,16 +176,16 @@ export default function HomePage() {
             </div>
           </section>
           
-          {/* Testimonials Section */}
+          {/* Testimonials Section - Lazy loaded */}
           <TestimonialsSection />
           
-          {/* CTA Section - Bold Modern Design */}
-          <section className="py-24 bg-black text-white" aria-label="Contact Carestia Law">
+          {/* CTA Section - Optimized inline content */}
+          <section className="py-24 bg-black text-white below-the-fold" aria-label="Contact Carestia Law">
             <div className="max-w-4xl mx-auto px-4 text-center">
               <div className="space-y-8">
                 <h2 className="text-4xl md:text-5xl font-bold leading-tight">
                   Ready to Get Started?
-                  <span className="block text-gold-rich">Your Legal Journey Begins Here</span>
+                  <span className="block text-yellow-400">Your Legal Journey Begins Here</span>
                 </h2>
                 
                 <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
@@ -180,14 +196,14 @@ export default function HomePage() {
                 <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
                   <a 
                     href="/contact" 
-                    className="inline-flex items-center justify-center px-10 py-5 bg-gradient-to-r from-gold-rich to-gold-warm text-black font-bold text-lg rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                    className="inline-flex items-center justify-center px-10 py-5 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold text-lg rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-colors duration-200"
                   >
                     Get Free Consultation
                   </a>
                   
                   <a 
                     href="tel:4048442799" 
-                    className="inline-flex items-center justify-center px-10 py-5 border-2 border-gold-rich text-gold-rich hover:bg-gold-rich hover:text-black font-bold text-lg rounded-lg transition-all duration-300"
+                    className="inline-flex items-center justify-center px-10 py-5 border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black font-bold text-lg rounded-lg transition-colors duration-200"
                   >
                     Call (404) 844-2799
                   </a>

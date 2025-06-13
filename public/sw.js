@@ -1,59 +1,39 @@
-const CACHE_NAME = 'carestia-law-v1';
+const CACHE_NAME = 'carestia-law-v2';
 const STATIC_CACHE = `${CACHE_NAME}-static`;
 const DYNAMIC_CACHE = `${CACHE_NAME}-dynamic`;
 const IMAGE_CACHE = `${CACHE_NAME}-images`;
 
-// Cache strategies
-const CACHE_STRATEGIES = {
-  CACHE_FIRST: 'cache-first',
-  NETWORK_FIRST: 'network-first',
-  STALE_WHILE_REVALIDATE: 'stale-while-revalidate',
-  NETWORK_ONLY: 'network-only',
-  CACHE_ONLY: 'cache-only'
-};
-
-// Static assets to cache on install
+// Critical static assets to cache immediately
 const STATIC_ASSETS = [
   '/',
-  '/practice-areas',
-  '/contact',
-  '/testimonials',
   '/manifest.json',
-  '/favicon.ico',
-  // Add other critical static assets
+  '/favicon.svg',
 ];
 
-// Network-first routes (dynamic content)
-const NETWORK_FIRST_ROUTES = [
-  '/api/',
-  '/contact',
-  '/practice-areas/'
-];
+// Critical resource patterns
+const CACHE_PATTERNS = {
+  IMAGES: /\.(png|jpg|jpeg|webp|avif|svg|ico)$/,
+  FONTS: /\.(woff|woff2|ttf|eot)$/,
+  STATIC: /\/_next\/static\//,
+  CSS: /\.css$/,
+  JS: /\.js$/,
+};
 
-// Cache-first routes (static content)
-const CACHE_FIRST_ROUTES = [
-  '/images/',
-  '/fonts/',
-  '/_next/static/',
-  '/icons/'
-];
-
-// Install event - cache static assets
+// Install event - cache critical assets only
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installing...');
+  console.log('[SW] Installing v2...');
   
   event.waitUntil(
     caches.open(STATIC_CACHE).then((cache) => {
-      console.log('[SW] Caching static assets');
+      console.log('[SW] Caching critical assets');
       return cache.addAll(STATIC_ASSETS);
     }).then(() => {
-      // Force activation
       return self.skipWaiting();
     })
   );
 });
 
-// Activate event - clean up old caches
+// Activate event - clean old caches
 self.addEventListener('activate', (event) => {
   console.log('[SW] Activating...');
   
@@ -61,8 +41,7 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheName.startsWith('carestia-law-') && 
-              cacheName !== STATIC_CACHE && 
+          if (cacheName !== STATIC_CACHE && 
               cacheName !== DYNAMIC_CACHE && 
               cacheName !== IMAGE_CACHE) {
             console.log('[SW] Deleting old cache:', cacheName);
@@ -71,193 +50,130 @@ self.addEventListener('activate', (event) => {
         })
       );
     }).then(() => {
-      // Take control of all clients
       return self.clients.claim();
     })
   );
 });
 
-// Fetch event - implement caching strategies
+// Fetch event - optimized caching strategy
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
-  
-  // Skip non-GET requests
-  if (request.method !== 'GET') {
+
+  // Skip non-GET requests and chrome-extension requests
+  if (request.method !== 'GET' || url.protocol === 'chrome-extension:') {
     return;
   }
-  
-  // Skip Chrome extension requests
-  if (url.protocol === 'chrome-extension:') {
-    return;
-  }
-  
-  // Determine cache strategy based on request
-  const strategy = getCacheStrategy(request);
-  
-  switch (strategy) {
-    case CACHE_STRATEGIES.CACHE_FIRST:
-      event.respondWith(cacheFirst(request));
-      break;
-    case CACHE_STRATEGIES.NETWORK_FIRST:
-      event.respondWith(networkFirst(request));
-      break;
-    case CACHE_STRATEGIES.STALE_WHILE_REVALIDATE:
-      event.respondWith(staleWhileRevalidate(request));
-      break;
-    case CACHE_STRATEGIES.NETWORK_ONLY:
-      // Let the browser handle it
-      break;
-    default:
-      event.respondWith(staleWhileRevalidate(request));
+
+  // Handle different resource types
+  if (CACHE_PATTERNS.IMAGES.test(url.pathname)) {
+    event.respondWith(handleImageRequest(request));
+  } else if (CACHE_PATTERNS.FONTS.test(url.pathname)) {
+    event.respondWith(handleFontRequest(request));
+  } else if (CACHE_PATTERNS.STATIC.test(url.pathname) || 
+             CACHE_PATTERNS.CSS.test(url.pathname) || 
+             CACHE_PATTERNS.JS.test(url.pathname)) {
+    event.respondWith(handleStaticRequest(request));
+  } else if (url.pathname === '/' || url.pathname.startsWith('/practice-areas')) {
+    event.respondWith(handlePageRequest(request));
   }
 });
 
-// Cache strategy implementations
-async function cacheFirst(request) {
-  const cache = await caches.open(getCacheName(request));
-  const cached = await cache.match(request);
-  
-  if (cached) {
-    return cached;
-  }
-  
+// Cache-first strategy for images
+async function handleImageRequest(request) {
   try {
-    const response = await fetch(request);
-    
-    if (response.status === 200) {
-      cache.put(request, response.clone());
-    }
-    
-    return response;
-  } catch (error) {
-    console.error('[SW] Cache first failed:', error);
-    return new Response('Offline', { status: 503, statusText: 'Service Unavailable' });
-  }
-}
-
-async function networkFirst(request) {
-  const cache = await caches.open(getCacheName(request));
-  
-  try {
-    const response = await fetch(request);
-    
-    if (response.status === 200) {
-      cache.put(request, response.clone());
-    }
-    
-    return response;
-  } catch (error) {
-    console.log('[SW] Network failed, trying cache:', request.url);
+    const cache = await caches.open(IMAGE_CACHE);
     const cached = await cache.match(request);
     
     if (cached) {
       return cached;
     }
     
-    // Return offline page for navigation requests
-    if (request.mode === 'navigate') {
-      return caches.match('/');
-    }
-    
-    return new Response('Offline', { status: 503, statusText: 'Service Unavailable' });
-  }
-}
-
-async function staleWhileRevalidate(request) {
-  const cache = await caches.open(getCacheName(request));
-  const cached = await cache.match(request);
-  
-  // Start fetch in background
-  const fetchPromise = fetch(request).then((response) => {
-    if (response.status === 200) {
+    const response = await fetch(request);
+    if (response.ok) {
       cache.put(request, response.clone());
     }
     return response;
-  }).catch((error) => {
-    console.error('[SW] Background fetch failed:', error);
-    return cached;
-  });
-  
-  // Return cached immediately if available
-  if (cached) {
-    return cached;
+  } catch (error) {
+    console.log('[SW] Image request failed:', error);
+    return new Response('Image not available', { status: 404 });
   }
-  
-  // Otherwise wait for network
-  return fetchPromise;
 }
 
-// Helper functions
-function getCacheStrategy(request) {
-  const url = new URL(request.url);
-  const pathname = url.pathname;
-  
-  // Images get cache-first treatment
-  if (isImageRequest(request)) {
-    return CACHE_STRATEGIES.CACHE_FIRST;
+// Cache-first strategy for fonts
+async function handleFontRequest(request) {
+  try {
+    const cache = await caches.open(STATIC_CACHE);
+    const cached = await cache.match(request);
+    
+    if (cached) {
+      return cached;
+    }
+    
+    const response = await fetch(request);
+    if (response.ok) {
+      cache.put(request, response.clone());
+    }
+    return response;
+  } catch (error) {
+    console.log('[SW] Font request failed:', error);
+    return fetch(request);
   }
-  
-  // Static assets get cache-first treatment
-  if (CACHE_FIRST_ROUTES.some(route => pathname.startsWith(route))) {
-    return CACHE_STRATEGIES.CACHE_FIRST;
-  }
-  
-  // Dynamic content gets network-first treatment
-  if (NETWORK_FIRST_ROUTES.some(route => pathname.startsWith(route))) {
-    return CACHE_STRATEGIES.NETWORK_FIRST;
-  }
-  
-  // Navigation requests get stale-while-revalidate
-  if (request.mode === 'navigate') {
-    return CACHE_STRATEGIES.STALE_WHILE_REVALIDATE;
-  }
-  
-  // Default strategy
-  return CACHE_STRATEGIES.STALE_WHILE_REVALIDATE;
 }
 
-function getCacheName(request) {
-  if (isImageRequest(request)) {
-    return IMAGE_CACHE;
+// Cache-first strategy for static assets
+async function handleStaticRequest(request) {
+  try {
+    const cache = await caches.open(STATIC_CACHE);
+    const cached = await cache.match(request);
+    
+    if (cached) {
+      return cached;
+    }
+    
+    const response = await fetch(request);
+    if (response.ok) {
+      cache.put(request, response.clone());
+    }
+    return response;
+  } catch (error) {
+    console.log('[SW] Static request failed:', error);
+    return fetch(request);
   }
-  
-  const url = new URL(request.url);
-  if (url.pathname.startsWith('/_next/static/')) {
-    return STATIC_CACHE;
-  }
-  
-  return DYNAMIC_CACHE;
 }
 
-function isImageRequest(request) {
-  const url = new URL(request.url);
-  const extension = url.pathname.split('.').pop()?.toLowerCase();
-  return ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg'].includes(extension || '');
+// Stale-while-revalidate for pages
+async function handlePageRequest(request) {
+  try {
+    const cache = await caches.open(DYNAMIC_CACHE);
+    const cached = await cache.match(request);
+    
+    // Fetch in background
+    const fetchPromise = fetch(request).then((response) => {
+      if (response.ok) {
+        cache.put(request, response.clone());
+      }
+      return response;
+    });
+    
+    // Return cached version immediately if available
+    return cached || fetchPromise;
+  } catch (error) {
+    console.log('[SW] Page request failed:', error);
+    return fetch(request);
+  }
 }
 
-// Background sync for analytics and form submissions
+// Background sync for forms (if needed)
 self.addEventListener('sync', (event) => {
-  console.log('[SW] Background sync:', event.tag);
-  
   if (event.tag === 'contact-form') {
-    event.waitUntil(syncContactForm());
-  }
-  
-  if (event.tag === 'analytics') {
-    event.waitUntil(syncAnalytics());
+    event.waitUntil(handleFormSync());
   }
 });
 
-async function syncContactForm() {
-  // Retrieve queued form submissions from IndexedDB
-  // and attempt to submit them when online
-  console.log('[SW] Syncing contact form submissions');
-}
-
-async function syncAnalytics() {
-  // Sync analytics data when online
-  console.log('[SW] Syncing analytics data');
+async function handleFormSync() {
+  // Handle offline form submissions
+  console.log('[SW] Syncing forms...');
 }
 
 // Push notifications for legal updates
