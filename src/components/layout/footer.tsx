@@ -6,7 +6,6 @@ import {
   MapPin, 
   Clock, 
   Instagram,
-  Linkedin,
   ExternalLink,
   ArrowUpRight 
 } from 'lucide-react';
@@ -80,7 +79,6 @@ const contactInfo: ContactInfo = {
 
 const socialLinks: SocialLink[] = [
   { name: 'Instagram', href: 'https://www.instagram.com/p/DJ4kRawN7LF/', icon: Instagram },
-  { name: 'LinkedIn', href: 'https://linkedin.com/company/carestialaw', icon: Linkedin },
 ];
 
 export function Footer() {

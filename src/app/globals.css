@@ -518,11 +518,11 @@ input, textarea, select {
   contain-intrinsic-size: 0 500px;
 }
 
-/* Mobile-first: NO animations on small screens */
+/* Mobile-first: NO animations on small screens (EXCEPT mobile menu) */
 @media (max-width: 767px) {
-  *,
-  *::before,
-  *::after {
+  *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *),
+  *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *)::before,
+  *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *)::after {
     animation-duration: 0ms !important;
     animation-delay: 0ms !important;
     transition-duration: 0ms !important;
