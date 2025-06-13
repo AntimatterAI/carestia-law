@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 // Base URL configuration
 export const BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://carestialaw.com' 
+  ? 'https://www.carcrashatl.com' 
   : 'http://localhost:3000';
 
 // Default SEO configuration
@@ -52,7 +52,7 @@ export function generateMetadata({
   const metaDescription = description || DEFAULT_SEO.description;
   const url = `${BASE_URL}${path}`;
   const canonicalUrl = canonical || url;
-  const ogImage = image || `${BASE_URL}/images/og-default.jpg`;
+  const ogImage = image || `${BASE_URL}/images/og-social.png`;
   
   const allKeywords = [...DEFAULT_SEO.keywords, ...keywords];
 
@@ -276,7 +276,7 @@ export function generateArticleSchema(article: {
         "url": `${BASE_URL}/images/logo.png`
       }
     },
-    "image": article.image || `${BASE_URL}/images/og-default.jpg`,
+    "image": article.image || `${BASE_URL}/images/og-social.png`,
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": article.url

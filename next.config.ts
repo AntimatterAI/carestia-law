@@ -74,7 +74,7 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: '/:path*\\.(css|js|woff|woff2|ttf|eot|ico)',
+        source: '/:path*\\.(css|js|woff|woff2|ttf|eot|ico|png|jpg|jpeg|webp|avif)',
         headers: [
           {
             key: 'Cache-Control',
@@ -98,19 +98,19 @@ const nextConfig: NextConfig = {
             value: 'http',
           },
         ],
-        destination: 'https://carestialaw.com/:path*',
+        destination: 'https://www.carcrashatl.com/:path*',
         permanent: true,
       },
-      // WWW to non-WWW redirect
+      // WWW to non-WWW redirect (keeping www since that's the current domain)
       {
         source: '/:path*',
         has: [
           {
             type: 'host',
-            value: 'www.carestialaw.com',
+            value: 'carcrashatl.com',
           },
         ],
-        destination: 'https://carestialaw.com/:path*',
+        destination: 'https://www.carcrashatl.com/:path*',
         permanent: true,
       },
     ];
@@ -122,26 +122,35 @@ const nextConfig: NextConfig = {
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
         ...config.optimization.splitChunks,
+        chunks: 'all',
         cacheGroups: {
           ...config.optimization.splitChunks.cacheGroups,
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendors',
             chunks: 'all',
+            priority: 10,
           },
           // Separate chunk for lucide-react
           lucide: {
             test: /[\\/]node_modules[\\/]lucide-react[\\/]/,
             name: 'lucide',
             chunks: 'all',
-            priority: 10,
+            priority: 20,
           },
           // Separate chunk for Radix UI components
           radix: {
             test: /[\\/]node_modules[\\/]@radix-ui[\\/]/,
             name: 'radix',
             chunks: 'all',
-            priority: 10,
+            priority: 20,
+          },
+          // Common chunk for shared components
+          common: {
+            name: 'common',
+            minChunks: 2,
+            chunks: 'all',
+            priority: 5,
           },
         },
       };

@@ -1,35 +1,9 @@
 import { HeroSection } from '@/components/sections/hero-section';
 import { PracticeAreasSection } from '@/components/sections/practice-areas-section';
+import { TestimonialsSection } from '@/components/sections/testimonials-section';
 import { ModernLayout } from '@/components/layout';
 import { generateMetadata, generateLocalBusinessSchema, BASE_URL } from '@/lib/seo';
-import dynamic from 'next/dynamic';
 import type { Metadata } from 'next';
-
-// Lazy load TestimonialsSection since it's below the fold
-const TestimonialsSection = dynamic(
-  () => import('@/components/sections/testimonials-section').then(mod => ({ default: mod.TestimonialsSection })),
-  {
-    loading: () => (
-      <div className="py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <div className="animate-pulse">
-            <div className="h-8 bg-gray-200 rounded w-64 mx-auto mb-4"></div>
-            <div className="h-4 bg-gray-200 rounded w-96 mx-auto mb-8"></div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="bg-white p-6 rounded-lg shadow-md">
-                  <div className="h-4 bg-gray-200 rounded mb-4"></div>
-                  <div className="h-4 bg-gray-200 rounded mb-4"></div>
-                  <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    ),
-  }
-);
 
 // SEO Metadata for Homepage
 export const metadata: Metadata = generateMetadata({
