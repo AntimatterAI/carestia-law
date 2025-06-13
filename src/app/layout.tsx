@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
-import { PerformanceMonitor } from '@/components/performance/performance-monitor';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
@@ -104,14 +103,101 @@ export const metadata: Metadata = {
   referrer: 'origin-when-cross-origin'
 };
 
-// Critical CSS inlining for performance
+// Critical CSS for performance and layout stability
 const criticalCSS = `
-  .hero-section { min-height: 100vh; }
-  .nav-bar { backdrop-filter: blur(8px); }
-  .cta-button { transform: translateZ(0); }
-  .loading-skeleton { 
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; scroll-behavior: smooth; }
+  body { 
+    font-family: var(--font-inter), system-ui, -apple-system, sans-serif; 
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  
+  /* Prevent layout shifts and optimize rendering */
+  img, video { 
+    max-width: 100%; 
+    height: auto; 
+    display: block;
+  }
+  
+  /* Reserve space for hero section */
+  .hero-section { 
+    min-height: 100vh; 
+    contain: layout style paint;
+    position: relative;
+  }
+  
+  /* Optimize navigation */
+  .nav-bar { 
+    backdrop-filter: blur(8px); 
+    will-change: transform; 
+    contain: layout;
+    height: 80px; /* Fixed height to prevent CLS */
+  }
+  
+  /* Button optimizations */
+  .cta-button { 
+    transform: translateZ(0); 
+    will-change: transform;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Font loading stability */
+  .font-loading { font-display: swap; }
+  
+  /* Prevent CLS from dynamic content */
+  .trust-card-modern { 
+    min-height: 120px;
+    contain: layout;
+  }
+  
+  /* Grid stability */
+  .practice-grid { 
+    display: grid;
+    gap: 1.5rem;
+    contain: layout;
+  }
+  
+  /* Animation performance */
+  .hero-animate, .scroll-animate {
+    will-change: transform, opacity;
+  }
+  
+  /* Aspect ratio containers */
+  .aspect-ratio { 
+    position: relative; 
+    contain: layout;
+  }
+  .aspect-ratio::before { 
+    content: ''; 
+    display: block; 
+    padding-bottom: var(--aspect-ratio, 56.25%); 
+  }
+  .aspect-ratio > * { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+  }
+  
+  /* Skeleton loading for better perceived performance */
+  .skeleton {
     background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
     background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+  }
+  
+  @keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  
+  /* Optimize repaints */
+  .gold-gradient-text {
+    contain: layout style;
   }
 `;
 
@@ -127,53 +213,16 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* Favicon and app icons */}
+        {/* Favicon - simplified for mobile compatibility */}
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="icon" href="/favicon.svg" type="image/x-icon" />
         <link rel="apple-touch-icon" href="/favicon.svg" />
-        <link rel="shortcut icon" href="/favicon.svg" />
-        <meta name="msapplication-TileImage" content="/favicon.svg" />
-        <meta name="msapplication-TileColor" content="#000000" />
         
         {/* Critical CSS for above-the-fold content */}
         <style dangerouslySetInnerHTML={{ __html: criticalCSS }} />
         
-        {/* Preload critical resources */}
-        <link
-          rel="preload"
-          href="/fonts/Inter-Variable.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/PlayfairDisplay-Variable.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        
-        {/* DNS prefetch for external resources */}
+        {/* Essential resource hints only */}
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-        <link rel="dns-prefetch" href="//www.googletagmanager.com" />
-        
-        {/* Preconnect to critical origins */}
-        <link 
-          rel="preconnect" 
-          href="https://fonts.googleapis.com"
-          crossOrigin="anonymous"
-        />
-        <link 
-          rel="preconnect" 
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        
-        {/* Resource hints for performance */}
-        <link rel="preload" href="/images/hero-bg-optimized.webp" as="image" />
-        <link rel="preload" href="/images/logo-optimized.webp" as="image" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="" />
         
         {/* Web app optimizations */}
         <meta name="mobile-web-app-capable" content="yes" />
@@ -189,90 +238,16 @@ export default function RootLayout({
         <meta httpEquiv="X-Frame-Options" content="DENY" />
         <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
         
-        {/* Google Analytics - defer loading */}
-        {process.env.NEXT_PUBLIC_GA_ID && (
-          <>
-            <script
-              async
-              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-            />
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
-                    page_title: document.title,
-                    page_location: window.location.href,
-                    send_page_view: false
-                  });
-                `,
-              }}
-            />
-          </>
-        )}
+
       </head>
       
       <body className="antialiased">
-        {/* Performance monitoring component */}
-        <PerformanceMonitor />
-        
         {/* Main application content */}
         <div id="root" className="min-h-screen">
           {children}
         </div>
         
-        {/* Service worker registration */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if ('serviceWorker' in navigator) {
-                window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js')
-                    .then(function(registration) {
-                      console.log('SW registered: ', registration);
-                    })
-                    .catch(function(registrationError) {
-                      console.log('SW registration failed: ', registrationError);
-                    });
-                });
-              }
-            `,
-          }}
-        />
-        
-        {/* Performance optimization script */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              // Optimize third-party scripts loading
-              window.addEventListener('load', function() {
-                // Defer non-critical scripts
-                setTimeout(function() {
-                  // Load non-critical analytics
-                  if (typeof gtag !== 'undefined') {
-                    gtag('event', 'page_view', {
-                      page_title: document.title,
-                      page_location: window.location.href
-                    });
-                  }
-                }, 2000);
-              });
-              
-              // Optimize scroll performance
-              let scrollTimer = null;
-              window.addEventListener('scroll', function() {
-                if (scrollTimer !== null) {
-                  clearTimeout(scrollTimer);
-                }
-                scrollTimer = setTimeout(function() {
-                  // Scroll-end optimizations
-                }, 150);
-              }, { passive: true });
-            `,
-          }}
-        />
+        {/* Essential analytics only */}
         <Analytics />
         <SpeedInsights />
       </body>

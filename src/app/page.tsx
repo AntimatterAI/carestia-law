@@ -88,7 +88,6 @@ export default function HomePage() {
         <main role="main" aria-label="Carestia Law - Expert Legal Representation">
           {/* Hero Section - Modern 2025 Design */}
           <HeroSection 
-            backgroundImage="/images/hero-bg-optimized.webp"
             className="modern-hero-2025"
           />
           
