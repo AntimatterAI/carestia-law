@@ -1,0 +1,13 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="32" height="32" rx="6" fill="#000000"/>
+  <!-- Central pillar -->
+  <rect x="15" y="8" width="2" height="16" fill="#FFD700"/>
+  <!-- Top crossbar -->
+  <rect x="8" y="10" width="16" height="2" fill="#FFD700"/>
+  <!-- Left scale -->
+  <path d="M6 12 L14 12 L12 18 L8 18 Z" fill="#FFD700" opacity="0.8"/>
+  <!-- Right scale -->
+  <path d="M18 12 L26 12 L24 18 L20 18 Z" fill="#FFD700" opacity="0.8"/>
+  <!-- Base -->
+  <rect x="11" y="22" width="10" height="2" fill="#FFD700"/>
+</svg> 

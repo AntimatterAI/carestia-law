@@ -1,2 +1,16 @@
 # This is a placeholder for the 192x192 icon
 # In production, this should be replaced with an actual PNG icon file 
+
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="192" height="192" rx="32" fill="#000000"/>
+  <!-- Central pillar -->
+  <rect x="90" y="48" width="12" height="96" fill="#FFD700"/>
+  <!-- Top crossbar -->
+  <rect x="48" y="60" width="96" height="12" fill="#FFD700"/>
+  <!-- Left scale -->
+  <path d="M36 72 L84 72 L72 108 L48 108 Z" fill="#FFD700" opacity="0.8"/>
+  <!-- Right scale -->
+  <path d="M108 72 L156 72 L144 108 L120 108 Z" fill="#FFD700" opacity="0.8"/>
+  <!-- Base -->
+  <rect x="66" y="132" width="60" height="12" fill="#FFD700"/>
+</svg> 

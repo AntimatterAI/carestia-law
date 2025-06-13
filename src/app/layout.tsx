@@ -127,6 +127,14 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        {/* Favicon and app icons */}
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.svg" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.svg" />
+        <meta name="msapplication-TileImage" content="/favicon.svg" />
+        <meta name="msapplication-TileColor" content="#000000" />
+        
         {/* Critical CSS for above-the-fold content */}
         <style dangerouslySetInnerHTML={{ __html: criticalCSS }} />
         
