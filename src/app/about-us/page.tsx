@@ -239,7 +239,7 @@ export default function AboutUsPage() {
                 {coreValues.map((value, index) => {
                   const Icon = value.icon;
                   return (
-                    <div key={value.title} className="text-center space-y-6 p-8 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 hover:from-gold-champagne/30 hover:to-gold-rich/30 transition-all duration-300 hover:shadow-lg">
+                    <div key={value.title} className="text-center space-y-6 p-6 md:p-8 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 md:hover:from-gold-champagne/30 md:hover:to-gold-rich/30 md:transition-all md:duration-300 md:hover:shadow-lg">
                       <div className="w-20 h-20 bg-gradient-to-br from-gold-rich to-gold-warm rounded-xl flex items-center justify-center mx-auto">
                         <Icon className="w-10 h-10 text-black" />
                       </div>

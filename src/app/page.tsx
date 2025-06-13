@@ -110,22 +110,22 @@ export default function HomePage() {
                     </p>
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-4 md:gap-8">
-                    <div className="text-center p-4 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl transition-all duration-300 md:hover:shadow-lg md:hover:scale-105">
-                      <div className="text-2xl md:text-3xl font-bold text-gold-rich mb-2">15+</div>
-                      <div className="text-gray-700 font-medium text-sm md:text-base">Years Experience</div>
+                  <div className="grid grid-cols-2 gap-3 md:gap-8">
+                    <div className="text-center p-3 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg md:rounded-xl md:transition-all md:duration-300 md:hover:shadow-lg md:hover:scale-105">
+                      <div className="text-xl md:text-3xl font-bold text-gold-rich mb-1 md:mb-2">15+</div>
+                      <div className="text-gray-700 font-medium text-xs md:text-base">Years Experience</div>
                     </div>
-                    <div className="text-center p-4 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl transition-all duration-300 md:hover:shadow-lg md:hover:scale-105">
-                      <div className="text-2xl md:text-3xl font-bold text-gold-rich mb-2">500+</div>
-                      <div className="text-gray-700 font-medium text-sm md:text-base">Cases Won</div>
+                    <div className="text-center p-3 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg md:rounded-xl md:transition-all md:duration-300 md:hover:shadow-lg md:hover:scale-105">
+                      <div className="text-xl md:text-3xl font-bold text-gold-rich mb-1 md:mb-2">500+</div>
+                      <div className="text-gray-700 font-medium text-xs md:text-base">Cases Won</div>
                     </div>
-                    <div className="text-center p-4 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl transition-all duration-300 md:hover:shadow-lg md:hover:scale-105">
-                      <div className="text-2xl md:text-3xl font-bold text-gold-rich mb-2">98%</div>
-                      <div className="text-gray-700 font-medium text-sm md:text-base">Client Satisfaction</div>
+                    <div className="text-center p-3 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg md:rounded-xl md:transition-all md:duration-300 md:hover:shadow-lg md:hover:scale-105">
+                      <div className="text-xl md:text-3xl font-bold text-gold-rich mb-1 md:mb-2">98%</div>
+                      <div className="text-gray-700 font-medium text-xs md:text-base">Client Satisfaction</div>
                     </div>
-                    <div className="text-center p-4 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl transition-all duration-300 md:hover:shadow-lg md:hover:scale-105">
-                      <div className="text-2xl md:text-3xl font-bold text-gold-rich mb-2">24/7</div>
-                      <div className="text-gray-700 font-medium text-sm md:text-base">Availability</div>
+                    <div className="text-center p-3 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg md:rounded-xl md:transition-all md:duration-300 md:hover:shadow-lg md:hover:scale-105">
+                      <div className="text-xl md:text-3xl font-bold text-gold-rich mb-1 md:mb-2">24/7</div>
+                      <div className="text-gray-700 font-medium text-xs md:text-base">Availability</div>
                     </div>
                   </div>
                   
