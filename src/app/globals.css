@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@theme {
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+  --font-family-serif: 'Playfair Display', Georgia, serif;
+  
+  --color-gold-rich: #FFD700;
+  --color-gold-champagne: #F7E7CE;
+  --color-gold-warm: #B8860B;
+  --color-gold-metallic: #DAA520;
+  --color-black-primary: #000000;
+  
+  --animate-float-gentle: float-gentle 3s ease-in-out infinite;
+  --animate-pulse-gold: pulse-gold 2s ease-in-out infinite;
+  --animate-slide-up: slide-up 0.6s ease-out;
+  --animate-shimmer: shimmer 1.5s infinite;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @layer base {
@@ -25,13 +41,6 @@
     --ring: oklch(0.15 0 0);
     --radius: 0.5rem;
 
-    /* Custom Law Firm Color Palette - Modern 2025 */
-    --black-primary: oklch(0 0 0); /* #000000 */
-    --gold-rich: oklch(0.873 0.16 89.4); /* #FFD700 */
-    --gold-champagne: oklch(0.936 0.035 89.4); /* #F7E7CE */
-    --gold-warm: oklch(0.574 0.08 89.4); /* #B8860B */
-    --gold-metallic: oklch(0.8 0.12 89.4); /* Metallic gold effect */
-    
     /* Font Variables */
     --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-playfair: 'Playfair Display', Georgia, 'Times New Roman', serif;
@@ -93,47 +102,72 @@
   }
 }
 
-/* Modern Law Firm Design System - 2025 Trends */
+/* Modern animations */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
 
-/* Custom utility classes for the modern law firm palette */
+@keyframes pulse-gold {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes slide-up {
+  from { 
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Modern Law Firm Design System - 2025 Trends */
 @layer utilities {
   .text-gold-rich {
-    color: oklch(0.873 0.16 89.4);
+    color: #FFD700;
   }
   .text-gold-champagne {
-    color: oklch(0.936 0.035 89.4);
+    color: #F7E7CE;
   }
   .text-gold-warm {
-    color: oklch(0.574 0.08 89.4);
+    color: #B8860B;
   }
   .text-gold-metallic {
-    color: oklch(0.8 0.12 89.4);
+    color: #DAA520;
   }
   .text-black-primary {
-    color: oklch(0 0 0);
+    color: #000000;
   }
   
   .bg-gold-rich {
-    background-color: oklch(0.873 0.16 89.4);
+    background-color: #FFD700;
   }
   .bg-gold-champagne {
-    background-color: oklch(0.936 0.035 89.4);
+    background-color: #F7E7CE;
   }
   .bg-gold-warm {
-    background-color: oklch(0.574 0.08 89.4);
+    background-color: #B8860B;
   }
   .bg-gold-metallic {
-    background: linear-gradient(135deg, oklch(0.8 0.12 89.4) 0%, oklch(0.873 0.16 89.4) 100%);
+    background: linear-gradient(135deg, #DAA520 0%, #FFD700 100%);
   }
   .bg-black-primary {
-    background-color: oklch(0 0 0);
+    background-color: #000000;
   }
   
   .border-gold-rich {
-    border-color: oklch(0.873 0.16 89.4);
+    border-color: #FFD700;
   }
   .border-gold-warm {
-    border-color: oklch(0.574 0.08 89.4);
+    border-color: #B8860B;
   }
   
   /* Modern gradient backgrounds */
@@ -248,6 +282,23 @@
     overflow: hidden;
     contain: layout style paint;
   }
+  
+  /* Animation utilities */
+  .animate-float {
+    animation: float-gentle 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-gold {
+    animation: pulse-gold 2s ease-in-out infinite;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.6s ease-out;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 1.5s infinite;
+  }
 }
 
 /* Critical Performance Optimizations */
@@ -346,58 +397,19 @@ input, textarea, select {
   will-change: scroll-position;
 }
 
-/* Loading animations */
-@keyframes shimmer {
-  0% { 
-    transform: translateX(-100%); 
+/* Mobile-first responsive optimizations */
+@media (max-width: 767px) {
+  *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *),
+  *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *):before,
+  *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *):after {
+    animation-duration: 0.1s !important;
+    transition-duration: 0.1s !important;
   }
-  100% { 
-    transform: translateX(100%); 
+  
+  .btn-modern-primary,
+  .btn-modern-secondary {
+    transform: none !important;
   }
-}
-
-.animate-shimmer {
-  animation: shimmer 1.5s infinite;
-}
-
-@keyframes float-gentle {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes pulse-gold {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
-}
-
-@keyframes slide-up {
-  from { 
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to { 
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-float {
-  animation: float-gentle 3s ease-in-out infinite;
-}
-
-.animate-pulse-gold {
-  animation: pulse-gold 2s ease-in-out infinite;
-}
-
-.animate-slide-up {
-  animation: slide-up 0.6s ease-out;
-}
-
-/* Prevent layout shifts */
-img, video, iframe {
-  max-width: 100%;
-  height: auto;
-  display: block;
 }
 
 /* Modern CSS Grid optimizations */
@@ -423,66 +435,6 @@ img, video, iframe {
   .auto-dark {
     background-color: #1a1a1a;
     color: #ffffff;
-  }
-}
-
-/* Mobile-first responsive optimizations */
-@media (max-width: 767px) {
-  *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *),
-  *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *):before,
-  *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *):after {
-    animation-duration: 0.1s !important;
-    transition-duration: 0.1s !important;
-  }
-  
-  .btn-modern-primary,
-  .btn-modern-secondary {
-    transform: none !important;
-  }
-}
-
-/* Tablet and desktop specific animations */
-@media (min-width: 768px) {
-  @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-  }
-
-  @keyframes float-gentle {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-  }
-
-  @keyframes slide-up {
-    from { 
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to { 
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .skeleton {
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-    background-size: 200% 100%;
-    animation: skeleton-loading 1.5s infinite;
-  }
-}
-
-/* Reduced motion for accessibility */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  
-  html {
-    scroll-behavior: auto;
   }
 }
 
