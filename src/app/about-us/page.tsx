@@ -1,7 +1,7 @@
 import { ModernLayout } from '@/components/layout';
 import { BreadcrumbContainer, Breadcrumb, type BreadcrumbItem } from '@/components/ui/breadcrumb';
 import { generateMetadata, BASE_URL } from '@/lib/seo';
-import { Users, Award, Scale, Shield, Heart, CheckCircle } from 'lucide-react';
+import { Award, Scale, Shield, Heart, CheckCircle } from 'lucide-react';
 import type { Metadata } from 'next';
 
 // SEO Metadata for About Us page

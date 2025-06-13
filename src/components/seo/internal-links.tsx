@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Scale, Heart, Stethoscope, Car, AlertTriangle, Truck, Shield, Camera, HardHat, Phone } from 'lucide-react';
+import { ArrowRight, Scale, Heart, Stethoscope, Car, Truck, Shield, Camera, HardHat, Phone } from 'lucide-react';
 import { PRACTICE_AREA_KEYWORDS } from '@/lib/seo';
 
 // Define all practice areas for internal linking
