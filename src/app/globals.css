@@ -70,12 +70,18 @@
     padding: 0;
     background: white;
     color: #111827;
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
   }
   
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    width: 100%;
   }
   
   img, video, iframe {
@@ -326,6 +332,48 @@ input, textarea, select {
 
 /* Mobile-first responsive optimizations */
 @media (max-width: 767px) {
+  /* Prevent horizontal overflow on mobile */
+  * {
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+  
+  body, html {
+    overflow-x: hidden !important;
+    position: relative;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+  
+  /* Ensure all containers respect viewport width */
+  .container, 
+  .max-w-7xl, 
+  .max-w-6xl, 
+  .max-w-5xl, 
+  .max-w-4xl, 
+  .max-w-3xl {
+    max-width: 100vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Prevent images and videos from causing overflow */
+  img, video, iframe, svg {
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+  }
+  
+  /* Disable scroll chaining and bouncing on iOS */
+  body {
+    -webkit-overflow-scrolling: touch;
+    -webkit-scroll-behavior: smooth;
+    overscroll-behavior-x: none;
+    overscroll-behavior-y: auto;
+  }
+  
+  /* Performance optimizations for mobile */
   *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *),
   *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *):before,
   *:not(.mobile-menu):not(.mobile-menu-backdrop):not(.mobile-menu *):after {
@@ -380,4 +428,60 @@ input, textarea, select {
 .content-visibility-auto {
   content-visibility: auto;
   contain-intrinsic-size: 0 500px;
+}
+
+/* Mobile overflow prevention utilities */
+.no-horizontal-scroll {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+
+.mobile-safe-width {
+  width: 100% !important;
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+}
+
+.prevent-mobile-zoom {
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Root container safety */
+#root {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Additional mobile viewport fixes */
+@media (max-width: 768px) {
+  /* Prevent any element from extending beyond viewport */
+  * {
+    max-width: 100vw !important;
+  }
+  
+  /* Specific fixes for common overflow culprits */
+  .grid, 
+  .flex, 
+  .block,
+  div, 
+  section, 
+  article, 
+  main, 
+  header, 
+  footer {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Ensure text doesn't cause overflow */
+  h1, h2, h3, h4, h5, h6, p, span, div {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
 }

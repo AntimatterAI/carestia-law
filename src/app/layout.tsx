@@ -149,9 +149,9 @@ export default function RootLayout({
         <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
       </head>
       
-      <body className="antialiased">
+      <body className="antialiased no-horizontal-scroll">
         {/* Main application content */}
-        <div id="root" className="min-h-screen">
+        <div id="root" className="min-h-screen mobile-safe-width">
           {children}
         </div>
         
