@@ -96,9 +96,9 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
             <div className="space-y-4 md:space-y-6">
               {/* Mobile-optimized typography */}
               <h1 id="hero-heading" className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
-                <span className="block">Expert Legal</span>
+                <span className="block">it's definitely a</span>
                 <span className="block bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
-                  Representation
+                  template
                 </span>
               </h1>
               
