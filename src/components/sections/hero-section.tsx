@@ -12,7 +12,9 @@ import {
   ArrowRight,
   Shield,
   Scale,
-  ChevronDown
+  ChevronDown,
+  Award,
+  Clock
 } from 'lucide-react';
 
 // Dynamic imports for mobile optimization
@@ -92,67 +94,80 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
         <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
           
           {/* Main Content */}
-          <div className="space-y-6 md:space-y-8">
-            <div className="space-y-4 md:space-y-6">
-              {/* Mobile-optimized typography */}
-              <h1 id="hero-heading" className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
-                <span className="block">it's definitely a</span>
-                <span className="block bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
-                  template
-                </span>
-              </h1>
-              
-              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-200 font-medium leading-relaxed">
-                Decades of Courtroom Success
-              </p>
+          <div className="relative z-10 text-center text-white max-w-5xl mx-auto px-4">
+            
+            {/* Badge/Trust Indicator */}
+            <div className="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm font-medium mb-8">
+              <span className="text-amber-300">🛡️</span>
+              <span className="ml-2">Atlanta's #1 Car Accident Resource</span>
             </div>
 
-            <div className="space-y-4 md:space-y-6">
-              <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed max-w-2xl">
-                When you need experienced legal representation, choose attorneys who combine 
-                decades of courtroom success with personalized attention to your unique case.
-              </p>
-              
-              <div className="flex items-center space-x-3 text-amber-300">
-                <Shield className="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
-                <span className="text-base md:text-lg font-semibold">Licensed in Georgia</span>
-              </div>
-            </div>
+            {/* Main Headline */}
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-6">
+              <span className="block">Car Accident in</span>
+              <span className="block bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
+                Atlanta?
+              </span>
+              <span className="block text-3xl md:text-4xl lg:text-5xl font-medium text-white/90 mt-4">
+                Get the Help You Deserve
+              </span>
+            </h1>
 
-            {/* Mobile-optimized CTA Buttons */}
+            {/* Supporting Text */}
+            <p className="text-xl md:text-2xl text-white/80 font-medium max-w-4xl mx-auto leading-relaxed mb-4">
+              Don't face insurance companies alone. Connect with experienced Atlanta car accident 
+              attorneys who have recovered millions for accident victims.
+            </p>
+
+            {/* Trust Statement */}
+            <p className="text-lg text-amber-200 font-medium mb-12">
+              ✓ Free Consultations  ✓ No Win, No Fee  ✓ Available 24/7
+            </p>
+
+            {/* Call-to-Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
               <Link 
-                href="/contact" 
+                href="/find-attorney" 
                 className="btn-modern-primary inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 text-base md:text-lg font-bold rounded-lg bg-gradient-to-r from-amber-400 to-amber-500 text-black hover:from-amber-500 hover:to-amber-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
-                aria-describedby="free-consultation-description"
+                aria-describedby="find-attorney-description"
               >
-                <MessageCircle className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
-                Get Your Free Consultation
+                <Users className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
+                Find My Attorney Now
                 <ArrowRight className="ml-2 md:ml-3 h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
               </Link>
               
               <Link 
-                href="tel:4048442799" 
+                href="/free-case-evaluation" 
                 className="btn-modern-secondary inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 text-base md:text-lg font-bold rounded-lg border-2 border-amber-400 text-amber-300 bg-transparent hover:bg-amber-400 hover:text-black transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
-                aria-label="Call Carestia Law at 4 0 4 8 4 4 2 7 9 9"
+                aria-label="Get free case evaluation"
               >
-                <Phone className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
-                Call (404) 844-2799
+                <Scale className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
+                Free Case Evaluation
               </Link>
             </div>
 
             {/* Descriptions for screen readers */}
             <div className="sr-only">
-              <p id="free-consultation-description">
-                Click to start your free legal consultation request. We'll respond within 24 hours.
+              <p id="find-attorney-description">
+                Connect with experienced Atlanta car accident attorneys who can help with your case
               </p>
             </div>
 
             {/* Trust Badge */}
-            <div className="pt-4 md:pt-6">
-              <div className="flex items-center space-x-3 text-gray-300">
-                <Scale className="h-5 w-5 md:h-6 md:w-6 text-amber-300" aria-hidden="true" />
-                <span className="text-base md:text-lg">Available 24/7 for Emergency Legal Matters</span>
+            <div className="mt-16 pt-8 border-t border-white/20">
+              <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 text-white/70">
+                <div className="flex items-center space-x-2">
+                  <Users className="h-5 w-5 text-amber-400" aria-hidden="true" />
+                  <span className="text-sm font-medium">Trusted by 1000+ Accident Victims</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Award className="h-5 w-5 text-amber-400" aria-hidden="true" />
+                  <span className="text-sm font-medium">$100M+ Recovered for Clients</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Clock className="h-5 w-5 text-amber-400" aria-hidden="true" />
+                  <span className="text-sm font-medium">24/7 Emergency Support</span>
+                </div>
               </div>
             </div>
           </div>
@@ -160,7 +175,7 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
           {/* Trust Indicators - Mobile Optimized */}
           <div className="space-y-6 md:space-y-8">
             <h2 className="text-2xl md:text-3xl font-bold text-white text-center lg:text-left">
-              Why Choose <span className="text-amber-300">Carestia Law</span>
+              Why Trust Our <span className="text-amber-300">Attorney Network</span>
             </h2>
             
             <div className="space-y-4 md:space-y-6">
@@ -204,18 +219,18 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
                   Don't Wait - <span className="text-amber-300">Act Now</span>
                 </h3>
                 <p className="text-gray-300 mb-4 md:mb-6 text-base md:text-lg">
-                  Every day matters in legal cases. Get the representation you need today.
+                  Every day matters in car accident cases. Get connected with an attorney today.
                 </p>
                 <Link 
-                  href="/contact" 
+                  href="/free-case-evaluation" 
                   className="btn-modern-primary inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 text-base md:text-lg font-bold rounded-lg bg-gradient-to-r from-amber-400 to-amber-500 text-black hover:from-amber-500 hover:to-amber-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
                   aria-describedby="schedule-consultation-description"
                 >
-                  Schedule Your Consultation
+                  Get Free Case Evaluation
                   <ArrowRight className="ml-2 md:ml-3 h-4 w-4 md:h-5 md:w-5" aria-hidden="true" />
                 </Link>
                 <p id="schedule-consultation-description" className="sr-only">
-                  Schedule your free legal consultation. We'll contact you within 24 hours.
+                  Get your free case evaluation. We'll connect you with an attorney within 24 hours.
                 </p>
               </div>
             </div>

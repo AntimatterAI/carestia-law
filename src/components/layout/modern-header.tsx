@@ -34,21 +34,22 @@ interface ModernHeaderProps {
 
 const navigationItems: NavigationItem[] = [
   { name: 'Home', href: '/' },
-  { name: 'About Us', href: '/about-us' },
+  { name: 'What to Do After a Car Accident', href: '/what-to-do-after-car-accident' },
+  { name: 'Understanding Your Rights', href: '/understanding-your-rights' },
+  { name: 'Find an Attorney', href: '/find-attorney' },
   { 
-    name: 'Practice Areas', 
-    href: '/practice-areas',
+    name: 'Resources', 
+    href: '/resources',
     submenu: [
-      { name: 'Car Accidents', href: '/practice-areas/car-accidents', description: 'Auto accidents, insurance claims, injury compensation' },
-      { name: 'Trucking Accidents', href: '/practice-areas/trucking-accidents', description: 'Commercial vehicle accidents, federal regulations' },
-      { name: 'Motorcycle Accidents', href: '/practice-areas/motorcycle-accidents', description: 'Motorcycle injury claims, compensation' },
-      { name: 'Medical Malpractice', href: '/practice-areas/medical-malpractice', description: 'Hospital negligence, medical errors' },
-      { name: 'Slip & Fall', href: '/practice-areas/slip-and-fall', description: 'Premises liability, property accidents' },
-      { name: 'Wrongful Death', href: '/practice-areas/wrongful-death', description: 'Family compensation, loss of life claims' },
-      { name: 'Dog Bite Injuries', href: '/practice-areas/dog-bite-injuries', description: 'Animal attacks, owner liability' },
-      { name: 'Personal Injury', href: '/practice-areas/personal-injury', description: 'General negligence, injury compensation' },
+      { name: 'Car Accident Checklist', href: '/resources/car-accident-checklist', description: 'Step-by-step guide for accident victims' },
+      { name: 'Insurance FAQ', href: '/resources/insurance-faq', description: 'Common insurance questions answered' },
+      { name: 'Georgia Traffic Laws', href: '/resources/georgia-traffic-laws', description: 'Know the laws that protect you' },
+      { name: 'Accident Report Forms', href: '/resources/accident-report-forms', description: 'Required forms and documents' },
+      { name: 'Common Injuries', href: '/resources/common-injuries', description: 'Car accident injury types and treatment' },
+      { name: 'Medical Treatment Guide', href: '/resources/medical-treatment-guide', description: 'Getting proper medical care' },
     ]
   },
+  { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '/contact' },
 ];
 
@@ -58,8 +59,8 @@ const navigationItems: NavigationItem[] = [
 
 export const ModernHeader: React.FC<ModernHeaderProps> = ({
   className,
-  monogram = 'CL',
-  firmName = 'Carestia Law',
+  monogram = 'CA',
+  firmName = 'Car Crashes in Atlanta',
   contactNumber = '(404) 844-2799',
   sticky = true,
 }) => {
@@ -193,7 +194,7 @@ export const ModernHeader: React.FC<ModernHeaderProps> = ({
         <div className="container max-w-7xl mx-auto px-4 h-full">
           <div className="flex items-center justify-between h-full">
             {/* Logo Section */}
-            <Link href="/" className="flex items-center space-x-3 group" aria-label="Carestia Law Homepage">
+            <Link href="/" className="flex items-center space-x-3 group" aria-label="Car Crashes in Atlanta Homepage">
               <div className={cn(
                 "bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-yellow-400/25 transition-all duration-300",
                 isScrolled ? 'logo-scrolled' : 'logo-normal'

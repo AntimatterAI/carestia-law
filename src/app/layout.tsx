@@ -41,23 +41,23 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.carcrashatl.com'),
   title: {
-    default: 'Carestia Law - Expert Legal Representation',
-    template: '%s | Carestia Law'
+    default: 'Car Crashes in Atlanta - Your Legal Resource for Car Accident Help',
+    template: '%s | Car Crashes in Atlanta'
   },
-  description: 'Leading law firm providing expert legal representation with decades of courtroom success. Specializing in personal injury, criminal defense, and civil litigation.',
+  description: 'Comprehensive resource for car crash victims in Atlanta. Connect with experienced attorneys, understand your rights, and get the legal help you deserve. Free consultations available 24/7.',
   keywords: [
-    'personal injury lawyer',
-    'legal representation', 
-    'car accident attorney',
-    'medical malpractice lawyer',
-    'Georgia attorney',
-    'Atlanta lawyer',
-    'experienced lawyers',
-    'free consultation'
+    'car accident attorney Atlanta',
+    'car crash lawyer Georgia', 
+    'car accident help Atlanta',
+    'Atlanta car accident lawyer',
+    'Georgia car crash attorney',
+    'car accident legal advice',
+    'Atlanta personal injury lawyer',
+    'free car accident consultation'
   ],
-  authors: [{ name: 'Carestia Law' }],
-  creator: 'Carestia Law',
-  publisher: 'Carestia Law',
+  authors: [{ name: 'Car Crashes in Atlanta' }],
+  creator: 'Car Crashes in Atlanta',
+  publisher: 'Car Crashes in Atlanta',
   formatDetection: {
     email: false,
     address: false,
@@ -67,25 +67,25 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://www.carcrashatl.com',
-    siteName: 'Carestia Law',
-    title: 'Carestia Law - Expert Legal Representation',
-    description: 'Leading law firm providing expert legal representation with decades of courtroom success.',
+    siteName: 'Car Crashes in Atlanta',
+    title: 'Car Crashes in Atlanta - Your Legal Resource for Car Accident Help',
+    description: 'Comprehensive resource for car crash victims in Atlanta. Connect with experienced attorneys, understand your rights, and get the legal help you deserve.',
     images: [
       {
         url: '/images/og-social.png',
         width: 1200,
         height: 630,
-        alt: 'Carestia Law - Expert Legal Representation',
+        alt: 'Car Crashes in Atlanta - Your Legal Resource',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Carestia Law - Expert Legal Representation',
-    description: 'Leading law firm providing expert legal representation with decades of courtroom success.',
+    title: 'Car Crashes in Atlanta - Your Legal Resource for Car Accident Help',
+    description: 'Comprehensive resource for car crash victims in Atlanta. Connect with experienced attorneys and understand your rights.',
     images: ['/images/og-social.png'],
-    creator: '@CarestiaLaw',
-    site: '@CarestiaLaw',
+    creator: '@CarCrashATL',
+    site: '@CarCrashATL',
   },
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION,

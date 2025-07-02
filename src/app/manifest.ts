@@ -2,17 +2,17 @@ import { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Carestia Law - Expert Legal Representation',
-    short_name: 'Carestia Law',
-    description: 'Expert legal representation in Georgia with over 15 years experience. Free consultation available 24/7.',
+    name: 'Car Crashes in Atlanta - Your Legal Resource',
+    short_name: 'CarCrashATL',
+    description: 'Comprehensive resource for car crash victims in Atlanta. Connect with experienced attorneys and understand your rights. Available 24/7.',
     start_url: '/',
     display: 'standalone',
     background_color: '#000000',
     theme_color: '#FFD700',
     orientation: 'portrait',
     scope: '/',
-    id: 'carestia-law-app',
-    categories: ['legal', 'business'],
+    id: 'car-crash-atl-app',
+    categories: ['legal', 'business', 'utilities'],
     lang: 'en-US',
     dir: 'ltr',
     icons: [
@@ -37,10 +37,10 @@ export default function manifest(): MetadataRoute.Manifest {
     ],
     shortcuts: [
       {
-        name: 'Contact Us',
-        short_name: 'Contact',
-        description: 'Get in touch for legal consultation',
-        url: '/contact',
+        name: 'Find Attorney',
+        short_name: 'Find Attorney',
+        description: 'Connect with experienced car accident attorneys',
+        url: '/find-attorney',
         icons: [
           {
             src: '/favicon.svg',
@@ -49,10 +49,10 @@ export default function manifest(): MetadataRoute.Manifest {
         ]
       },
       {
-        name: 'Practice Areas',
-        short_name: 'Services',
-        description: 'View our legal services',
-        url: '/practice-areas',
+        name: 'Emergency Help',
+        short_name: 'Emergency',
+        description: 'Get immediate legal help after car accident',
+        url: '/what-to-do-after-car-accident',
         icons: [
           {
             src: '/favicon.svg',
@@ -68,7 +68,7 @@ export default function manifest(): MetadataRoute.Manifest {
         src: '/images/og-social.png',
         sizes: '1200x630',
         type: 'image/png',
-        label: 'Carestia Law Homepage'
+        label: 'Car Crashes in Atlanta Homepage'
       }
     ],
     edge_side_panel: {

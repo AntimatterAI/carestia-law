@@ -20,32 +20,32 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: '1',
-    quote: "After my car accident, I was overwhelmed with medical bills and insurance hassles. Carestia Law took care of everything and got me a settlement far beyond what I expected.",
+    quote: "After my car accident, I was overwhelmed with medical bills and insurance hassles. The attorney I found through this service took care of everything and got me a settlement far beyond what I expected.",
     clientName: "Sarah M.",
     caseType: "Car Accident",
     outcome: "$425,000 Settlement",
     rating: 5,
-    location: "Brooklyn, NY",
+    location: "Atlanta, GA",
     initials: "SM"
   },
   {
     id: '2',
-    quote: "The medical malpractice case seemed impossible, but these attorneys never gave up. They brought in the right experts and secured justice for my family.",
+    quote: "I was hit by a distracted driver and didn't know where to turn. This resource connected me with an excellent attorney who fought hard for my case and secured a great outcome.",
     clientName: "Robert T.",
-    caseType: "Medical Malpractice",
-    outcome: "$1.2M Verdict",
+    caseType: "Car Accident",
+    outcome: "$180,000 Settlement",
     rating: 5,
-    location: "Manhattan, NY",
+    location: "Atlanta, GA",
     initials: "RT"
   },
   {
     id: '3',
-    quote: "I suffered a serious injury at work and was denied workers' comp benefits. Carestia Law fought the insurance company and got me everything I deserved.",
+    quote: "I was rear-ended on I-85 and suffered serious injuries. The attorney recommended through this service was professional, knowledgeable, and got me the compensation I deserved.",
     clientName: "Maria L.",
-    caseType: "Workers' Compensation",
-    outcome: "$180,000 Recovery",
+    caseType: "Car Accident",
+    outcome: "$225,000 Recovery",
     rating: 5,
-    location: "Newark, NJ",
+    location: "Atlanta, GA",
     initials: "ML"
   }
 ];
@@ -84,14 +84,15 @@ export function TestimonialsSection() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <Badge variant="outline" className="mb-6 border-yellow-600 text-yellow-700">
-            Client Success Stories
+            Success Stories
           </Badge>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-6 leading-tight">
-            What Our Clients Say
-            <span className="block text-amber-700">About Their Experience</span>
+            Real Results from
+            <span className="block text-amber-700">Atlanta Car Accident Cases</span>
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Real stories from real clients who received the justice and compensation they deserved.
+            See how our network of experienced attorneys has helped Atlanta car accident victims 
+            get the compensation they deserved.
           </p>
         </div>
 
@@ -186,30 +187,30 @@ export function TestimonialsSection() {
         {/* Trust Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-16 border-t border-gray-200">
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-amber-700 mb-2">98%</div>
-            <div className="text-gray-600">Client Satisfaction</div>
+            <div className="text-3xl md:text-4xl font-bold text-amber-700 mb-2">1000+</div>
+            <div className="text-gray-600">Accident Victims Helped</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-amber-700 mb-2">500+</div>
-            <div className="text-gray-600">Cases Won</div>
+            <div className="text-3xl md:text-4xl font-bold text-amber-700 mb-2">$100M+</div>
+            <div className="text-gray-600">Recovered in Settlements</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-amber-700 mb-2">$50M+</div>
-            <div className="text-gray-600">Recovered</div>
+            <div className="text-3xl md:text-4xl font-bold text-amber-700 mb-2">50+</div>
+            <div className="text-gray-600">Partner Attorneys</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-amber-700 mb-2">15+</div>
-            <div className="text-gray-600">Years Experience</div>
+            <div className="text-3xl md:text-4xl font-bold text-amber-700 mb-2">24/7</div>
+            <div className="text-gray-600">Emergency Support</div>
           </div>
         </div>
 
         {/* CTA Section */}
         <div className="text-center mt-16 pt-8 border-t border-gray-200">
           <h3 className="text-2xl font-bold text-black mb-4">
-            Ready to Join Our Success Stories?
+            Ready to Get the Help You Deserve?
           </h3>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Don't wait to get the legal help you need. Contact us today for your free consultation.
+            Don't wait to get the legal help you need. Get connected with an experienced Atlanta car accident attorney today.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -218,8 +219,8 @@ export function TestimonialsSection() {
               className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-bold px-8 py-4"
               asChild
             >
-              <a href="/contact">
-                Get Your Free Consultation
+              <a href="/find-attorney">
+                Find My Attorney Now
               </a>
             </Button>
             
@@ -229,8 +230,8 @@ export function TestimonialsSection() {
               className="border-2 border-yellow-400 text-yellow-700 hover:bg-yellow-400 hover:text-black font-bold px-8 py-4"
               asChild
             >
-              <a href="tel:4048442799">
-                Call (404) 844-2799
+              <a href="/free-case-evaluation">
+                Free Case Evaluation
               </a>
             </Button>
           </div>
