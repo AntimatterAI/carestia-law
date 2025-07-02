@@ -62,7 +62,7 @@ const legalLinks: LinkItem[] = [
 const contactInfo: ContactInfo = {
   phone: '(404) 844-2799',
   fax: '(404) 844-2796',
-  email: 'info@carestialaw.com',
+  email: 'info@carcrashatl.com',
   address: {
     street: '3500 Lenox Rd, Suite 1500',
     city: 'Atlanta',
@@ -97,21 +97,21 @@ export function Footer() {
               {/* Logo */}
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center shadow-lg">
-                  <span className="text-black font-bold text-lg font-serif">CL</span>
+                  <span className="text-black font-bold text-lg font-serif">CA</span>
                 </div>
                 <div>
                   <div className="text-xl font-bold font-serif text-white">
-                    Carestia Law
+                    Car Crashes in Atlanta
                   </div>
                   <div className="text-sm text-yellow-400 font-medium">
-                    Excellence in Legal Advocacy
+                    Your Legal Resource for Car Accidents
                   </div>
                 </div>
               </div>
               
               {/* Description */}
               <p className="text-gray-300 text-sm leading-relaxed">
-                Providing exceptional legal representation with personalized service and unwavering commitment to our clients' success. Your trusted partner in achieving justice.
+                Connecting car accident victims in Atlanta with experienced attorneys who fight for fair compensation. Your comprehensive resource for legal help after a car crash.
               </p>
             </div>
 
@@ -269,7 +269,7 @@ export function Footer() {
             
             {/* Copyright */}
             <div className="text-sm text-gray-400 text-center lg:text-left">
-              © {currentYear} Carestia Law. All rights reserved.
+              © {currentYear} Car Crashes in Atlanta. All rights reserved.
             </div>
 
             {/* Additional Legal Text */}

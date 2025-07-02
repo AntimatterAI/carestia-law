@@ -36,6 +36,7 @@ const navigationItems: NavigationItem[] = [
   { name: 'Home', href: '/' },
   { name: 'Emergency Help', href: '/what-to-do-after-car-accident' },
   { name: 'Know Your Rights', href: '/understanding-your-rights' },
+  { name: 'AI Case Builder', href: '/ai-case-builder' },
   { name: 'Find Attorney', href: '/find-attorney' },
   { 
     name: 'Resources', 
