@@ -42,12 +42,12 @@ const navigationItems: NavigationItem[] = [
     name: 'Resources', 
     href: '/resources',
     submenu: [
-      { name: 'Accident Checklist', href: '/resources/car-accident-checklist', description: 'Step-by-step guide for accident victims' },
-      { name: 'Insurance Help', href: '/resources/insurance-faq', description: 'Common insurance questions answered' },
-      { name: 'Georgia Laws', href: '/resources/georgia-traffic-laws', description: 'Know the laws that protect you' },
-      { name: 'Legal Forms', href: '/resources/accident-report-forms', description: 'Required forms and documents' },
-      { name: 'Injury Guide', href: '/resources/common-injuries', description: 'Car accident injury types and treatment' },
-      { name: 'Medical Care', href: '/resources/medical-treatment-guide', description: 'Getting proper medical care' },
+      { name: 'Emergency Steps', href: '/what-to-do-after-car-accident', description: 'What to do immediately after an accident' },
+      { name: 'Know Your Rights', href: '/understanding-your-rights', description: 'Understanding your legal rights in Georgia' },
+      { name: 'Free Case Review', href: '/free-case-evaluation', description: 'Get your case evaluated for free' },
+      { name: 'AI Case Builder', href: '/ai-case-builder', description: 'Build and organize your case online' },
+      { name: 'Blog & Articles', href: '/blog', description: 'Legal insights and accident guides' },
+      { name: 'About Our Approach', href: '/about-us', description: 'How we help accident victims' },
     ]
   },
   { name: 'Blog', href: '/blog' },
