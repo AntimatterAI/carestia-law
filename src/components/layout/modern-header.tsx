@@ -36,7 +36,7 @@ const navigationItems: NavigationItem[] = [
   { name: 'Home', href: '/' },
   { name: 'I Need Help', href: '/what-to-do-after-car-accident' },
   { name: 'My Rights', href: '/understanding-your-rights' },
-  { name: 'Build My Case', href: '/ai-case-builder' },
+  { name: 'Build Case', href: '/ai-case-builder' },
   { name: 'Get Attorney', href: '/find-attorney' },
   { 
     name: 'Resources', 
@@ -189,13 +189,18 @@ export const ModernHeader: React.FC<ModernHeaderProps> = ({
         .dropdown-parent:hover .chevron-rotate {
           transform: rotate(180deg);
         }
+        
+        /* Prevent text wrapping on navigation */
+        .nav-item {
+          white-space: nowrap;
+        }
       `}</style>
 
       <header className={cn(headerClasses, isScrolled ? 'header-scrolled' : 'header-normal')}>
         <div className="container max-w-7xl mx-auto px-4 h-full">
           <div className="flex items-center justify-between h-full">
             {/* Logo Section */}
-            <Link href="/" className="flex items-center space-x-3 group" aria-label="Car Crashes in Atlanta Homepage">
+            <Link href="/" className="flex items-center space-x-3 group flex-shrink-0" aria-label="Car Crashes in Atlanta Homepage">
               <div className={cn(
                 "bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-yellow-400/25 transition-all duration-300",
                 isScrolled ? 'logo-scrolled' : 'logo-normal'
@@ -213,13 +218,13 @@ export const ModernHeader: React.FC<ModernHeaderProps> = ({
               </div>
             </Link>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden xl:flex items-center space-x-8" aria-label="Main navigation">
+            {/* Desktop Navigation - Changed from xl to lg breakpoint */}
+            <nav className="hidden lg:flex items-center space-x-6" aria-label="Main navigation">
               {navigationItems.map((item) => (
                 <div key={item.name} className="relative dropdown-parent">
                   <Link
                     href={item.href}
-                    className="flex items-center space-x-1 text-white/90 hover:text-yellow-400 transition-colors duration-200 font-medium py-2"
+                    className="nav-item flex items-center space-x-1 text-white/90 hover:text-yellow-400 transition-colors duration-200 font-medium py-2 text-sm"
                   >
                     <span>{item.name}</span>
                     {item.submenu && (
@@ -251,12 +256,12 @@ export const ModernHeader: React.FC<ModernHeaderProps> = ({
             </nav>
 
             {/* Contact Button & Mobile Menu */}
-            <div className="flex items-center space-x-4">
-              {/* Contact Button */}
+            <div className="flex items-center space-x-3 flex-shrink-0">
+              {/* Contact Button - Hide on smaller screens to prevent crowding */}
               <Button
                 variant="outline"
                 size={isScrolled ? 'sm' : 'default'}
-                className="hidden md:flex items-center space-x-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black transition-all duration-300"
+                className="hidden xl:flex items-center space-x-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black transition-all duration-300"
                 asChild
               >
                 <Link href={`tel:${contactNumber.replace(/[^\d]/g, '')}`} aria-label={`Call ${contactNumber}`}>
@@ -265,10 +270,22 @@ export const ModernHeader: React.FC<ModernHeaderProps> = ({
                 </Link>
               </Button>
 
-              {/* Mobile Menu Button */}
+              {/* Compact phone button for lg screens */}
+              <Button
+                variant="outline"
+                size="sm"
+                className="hidden lg:flex xl:hidden items-center space-x-1 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black transition-all duration-300"
+                asChild
+              >
+                <Link href={`tel:${contactNumber.replace(/[^\d]/g, '')}`} aria-label={`Call ${contactNumber}`}>
+                  <Phone className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </Button>
+
+              {/* Mobile Menu Button - Changed from xl to lg */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="xl:hidden p-2 rounded-lg text-white hover:text-yellow-400 hover:bg-yellow-400/10 transition-all duration-200"
+                className="lg:hidden p-2 rounded-lg text-white hover:text-yellow-400 hover:bg-yellow-400/10 transition-all duration-200"
                 aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={isMobileMenuOpen}
               >
@@ -286,7 +303,7 @@ export const ModernHeader: React.FC<ModernHeaderProps> = ({
       {/* Mobile Menu Backdrop */}
       <div 
         className={cn(
-          "mobile-menu-backdrop fixed inset-0 bg-black/50 backdrop-blur-sm z-40 xl:hidden",
+          "mobile-menu-backdrop fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden",
           isMobileMenuOpen ? 'open' : ''
         )}
         onClick={() => setIsMobileMenuOpen(false)}
@@ -295,7 +312,7 @@ export const ModernHeader: React.FC<ModernHeaderProps> = ({
 
       {/* Mobile Menu */}
       <div className={cn(
-        "mobile-menu fixed top-0 right-0 h-full w-80 bg-black border-l border-yellow-400/20 z-50 xl:hidden overflow-y-auto",
+        "mobile-menu fixed top-0 right-0 h-full w-80 bg-black border-l border-yellow-400/20 z-50 lg:hidden overflow-y-auto",
         isMobileMenuOpen ? 'open' : ''
       )}>
         {/* Menu Header */}
@@ -304,7 +321,7 @@ export const ModernHeader: React.FC<ModernHeaderProps> = ({
             <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded flex items-center justify-center">
               <span className="font-serif font-bold text-black text-sm">{monogram}</span>
             </div>
-            <span className="font-serif font-bold text-white">{firmName}</span>
+            <span className="font-serif font-bold text-white text-sm">{firmName}</span>
           </div>
           <button
             onClick={() => setIsMobileMenuOpen(false)}
