@@ -6,250 +6,267 @@ import Link from 'next/link';
 import { 
   Phone, 
   MessageCircle, 
-  Users, 
-  Trophy, 
-  Star, 
   ArrowRight,
   Shield,
-  Scale,
-  ChevronDown,
-  Award,
-  Clock
+  Heart,
+  CheckCircle,
+  Clock,
+  Users,
+  Star,
+  ChevronDown
 } from 'lucide-react';
 
 // Dynamic imports for mobile optimization
 const Image = dynamic(() => import('next/image'), {
   ssr: false,
-  loading: () => <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black" />
+  loading: () => <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800" />
 });
-
-interface TrustIndicator {
-  icon: React.ComponentType<any>;
-  value: string;
-  label: string;
-  description: string;
-}
 
 interface HeroSectionProps {
   backgroundImage?: string;
   className?: string;
 }
 
-const trustIndicators: TrustIndicator[] = [
+const quickHelp = [
   {
-    icon: Trophy,
-    value: '15+',
-    label: 'Years of Experience',
-    description: 'Serving clients with dedication and expertise'
+    icon: Shield,
+    title: 'Stay Safe',
+    description: 'Move to safety, check for injuries, call 911',
+    urgent: true
   },
+  {
+    icon: Phone,
+    title: 'Get Help',
+    description: 'Call police, document everything, contact us',
+    urgent: false
+  },
+  {
+    icon: Heart,
+    title: 'Find Peace',
+    description: 'Let experienced attorneys handle the rest',
+    urgent: false
+  }
+];
+
+const trustStats = [
   {
     icon: Users,
     value: '500+',
-    label: 'Cases Won',
-    description: 'Successful outcomes for our clients'
+    label: 'Families Helped',
+    description: 'Real people, real results'
   },
   {
     icon: Star,
     value: '98%',
-    label: 'Client Satisfaction',
-    description: 'Exceptional service and results'
+    label: 'Success Rate',
+    description: 'We fight and we win'
+  },
+  {
+    icon: Clock,
+    value: '24/7',
+    label: 'Always Available',
+    description: 'When you need us most'
   }
 ];
 
 export function HeroSection({ backgroundImage, className = '' }: HeroSectionProps) {
   return (
     <section 
-      className={`hero-section relative min-h-screen flex items-center justify-center overflow-hidden ${className}`}
+      className={`relative min-h-screen flex items-center justify-center overflow-hidden ${className}`}
       aria-labelledby="hero-heading"
       role="banner"
-      style={{
-        // Mobile performance optimizations
-        contain: 'layout style paint',
-        willChange: 'auto',
-        backfaceVisibility: 'hidden',
-        transform: 'translateZ(0)',
-      }}
     >
-      {/* Mobile-optimized Background */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-br from-black via-gray-900 to-black">
+      {/* Modern Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800">
         {backgroundImage && (
-          <Suspense fallback={<div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black" />}>
+          <Suspense fallback={<div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800" />}>
             <Image
               src={backgroundImage}
-              alt="Professional legal office"
+              alt="Professional legal support"
               fill
-              priority={false} // Don't prioritize on mobile
-              className="object-cover opacity-30"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-              quality={60} // Lower quality for mobile
+              priority={false}
+              className="object-cover opacity-10"
+              sizes="100vw"
+              quality={60}
               loading="lazy"
             />
           </Suspense>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-transparent to-blue-800/60" />
       </div>
 
-      {/* Hero Content - Mobile Optimized */}
-      <div className="relative z-10 container max-w-7xl mx-auto px-4 py-12 md:py-20 pb-20 md:pb-32">
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
+      {/* Hero Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 py-20">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           
-          {/* Main Content */}
-          <div className="relative z-10 text-center text-white max-w-5xl mx-auto px-4">
+          {/* Left Column - Main Message */}
+          <div className="text-center lg:text-left space-y-8">
             
-            {/* Badge/Trust Indicator */}
-            <div className="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm font-medium mb-8">
-              <span className="text-amber-300">🛡️</span>
-              <span className="ml-2">Atlanta's #1 Car Accident Resource</span>
+            {/* Urgent Badge */}
+            <div className="inline-flex items-center space-x-2 bg-red-500/20 border border-red-400/30 rounded-full px-4 py-2 text-red-200">
+              <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium">Just had an accident? You're not alone.</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-6">
-              <span className="block">Car Accident in</span>
-              <span className="block bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
-                Atlanta?
-              </span>
-              <span className="block text-3xl md:text-4xl lg:text-5xl font-medium text-white/90 mt-4">
-                Get Legal Help Now
-              </span>
-            </h1>
-
-            {/* Supporting Text */}
-            <p className="text-xl md:text-2xl text-white/80 font-medium max-w-4xl mx-auto leading-relaxed mb-4">
-              Connect with top Atlanta car accident attorneys. 
-              We've recovered millions for accident victims.
-            </p>
-
-            {/* Trust Statement */}
-            <p className="text-lg text-amber-200 font-medium mb-12">
-              ✓ Free Consultations  ✓ No Win, No Fee  ✓ Available 24/7
-            </p>
-
-            {/* Call-to-Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
-              <Link 
-                href="/find-attorney" 
-                className="btn-modern-primary inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 text-base md:text-lg font-bold rounded-lg bg-gradient-to-r from-amber-400 to-amber-500 text-black hover:from-amber-500 hover:to-amber-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
-                aria-describedby="find-attorney-description"
-              >
-                <Users className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
-                Find Attorney Now
-                <ArrowRight className="ml-2 md:ml-3 h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
-              </Link>
-              
-              <Link 
-                href="/free-case-evaluation" 
-                className="btn-modern-secondary inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 text-base md:text-lg font-bold rounded-lg border-2 border-amber-400 text-amber-300 bg-transparent hover:bg-amber-400 hover:text-black transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
-                aria-label="Get free case evaluation"
-              >
-                <Scale className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
-                Free Evaluation
-              </Link>
-            </div>
-
-            {/* Descriptions for screen readers */}
-            <div className="sr-only">
-              <p id="find-attorney-description">
-                Connect with experienced Atlanta car accident attorneys who can help with your case
+            <div className="space-y-4">
+              <h1 id="hero-heading" className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+                Don't Face This
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
+                  Alone
+                </span>
+              </h1>
+              <p className="text-xl md:text-2xl text-blue-100 leading-relaxed max-w-2xl">
+                Car accidents are overwhelming. We'll guide you through every step and connect you with attorneys who truly care about your recovery.
               </p>
             </div>
 
-            {/* Trust Badge */}
-            <div className="mt-16 pt-8 border-t border-white/20">
-              <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 text-white/70">
-                <div className="flex items-center space-x-2">
-                  <Users className="h-5 w-5 text-amber-400" aria-hidden="true" />
-                  <span className="text-sm font-medium">Trusted by 1000+ Accident Victims</span>
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+              <div className="flex items-center space-x-2 text-white/90">
+                <CheckCircle className="h-5 w-5 text-green-400" />
+                <span className="text-sm">Free guidance</span>
+              </div>
+              <div className="flex items-center space-x-2 text-white/90">
+                <CheckCircle className="h-5 w-5 text-green-400" />
+                <span className="text-sm">No pressure</span>
+              </div>
+              <div className="flex items-center space-x-2 text-white/90">
+                <CheckCircle className="h-5 w-5 text-green-400" />
+                <span className="text-sm">Available 24/7</span>
+              </div>
+            </div>
+
+            {/* Primary Actions */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/what-to-do-after-car-accident"
+                className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-red-500 to-red-600 text-white font-bold rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 text-lg group"
+              >
+                <Heart className="h-5 w-5 mr-2 group-hover:scale-110 transition-transform" />
+                I Need Help Now
+              </Link>
+              <Link
+                href="/find-attorney"
+                className="inline-flex items-center justify-center px-8 py-4 border-2 border-white/30 text-white font-bold rounded-lg hover:bg-white/10 transition-all duration-200 text-lg group"
+              >
+                Find My Attorney
+                <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+
+            {/* Emergency Contact */}
+            <div className="p-6 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-white/80 text-sm">Emergency? Call now:</p>
+                  <a 
+                    href="tel:4048442799" 
+                    className="text-2xl font-bold text-yellow-400 hover:text-yellow-300 transition-colors"
+                  >
+                    (404) 844-2799
+                  </a>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Award className="h-5 w-5 text-amber-400" aria-hidden="true" />
-                  <span className="text-sm font-medium">$100M+ Recovered for Clients</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Clock className="h-5 w-5 text-amber-400" aria-hidden="true" />
-                  <span className="text-sm font-medium">24/7 Emergency Support</span>
+                <div className="text-white/60 text-sm text-right">
+                  <p>Available</p>
+                  <p className="font-semibold">24/7</p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Trust Indicators - Mobile Optimized */}
-          <div className="space-y-6 md:space-y-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-white text-center lg:text-left">
-              Why Trust Our <span className="text-amber-300">Attorney Network</span>
-            </h2>
+          {/* Right Column - Quick Help & Stats */}
+          <div className="space-y-8">
             
-            <div className="space-y-4 md:space-y-6">
-              {trustIndicators.map((indicator, index) => {
-                const Icon = indicator.icon;
+            {/* Quick Help Steps */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+              <h2 className="text-2xl font-bold text-white mb-6 text-center">
+                What to Do Right Now
+              </h2>
+              <div className="space-y-6">
+                {quickHelp.map((step, index) => {
+                  const Icon = step.icon;
+                  return (
+                    <div 
+                      key={step.title} 
+                      className={`flex items-start space-x-4 p-4 rounded-lg transition-all duration-200 ${
+                        step.urgent 
+                          ? 'bg-red-500/20 border border-red-400/30' 
+                          : 'bg-white/5 hover:bg-white/10'
+                      }`}
+                    >
+                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                        step.urgent 
+                          ? 'bg-red-500 text-white' 
+                          : 'bg-white/20 text-blue-200'
+                      }`}>
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-white text-lg mb-1">{step.title}</h3>
+                        <p className="text-blue-100 text-sm leading-relaxed">{step.description}</p>
+                      </div>
+                      {step.urgent && (
+                        <div className="text-red-400 text-xs font-medium">URGENT</div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              
+              <div className="mt-6 text-center">
+                <Link
+                  href="/what-to-do-after-car-accident"
+                  className="inline-flex items-center text-white hover:text-yellow-400 transition-colors font-medium"
+                >
+                  View complete checklist
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Trust Stats */}
+            <div className="grid grid-cols-3 gap-4">
+              {trustStats.map((stat) => {
+                const Icon = stat.icon;
                 return (
                   <div 
-                    key={indicator.label} 
-                    className="trust-card bg-black/50 backdrop-blur-sm border border-amber-400/20 rounded-xl p-4 md:p-8 hover:border-amber-400/40 transition-colors duration-200"
-                    style={{ contain: 'layout style' }} // Mobile optimization
-                    role="article"
-                    aria-labelledby={`trust-indicator-${index}`}
+                    key={stat.label} 
+                    className="bg-white/5 backdrop-blur-sm rounded-lg p-4 text-center border border-white/10 hover:bg-white/10 transition-all duration-200"
                   >
-                    <div className="flex items-center space-x-4 md:space-x-6">
-                      <div className="flex-shrink-0">
-                        <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-amber-400 to-amber-500 rounded-xl flex items-center justify-center">
-                          <Icon className="h-6 w-6 md:h-8 md:w-8 text-black" aria-hidden="true" />
-                        </div>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-2xl md:text-3xl font-bold text-amber-300 mb-1 md:mb-2">
-                          {indicator.value}
-                        </div>
-                        <h3 id={`trust-indicator-${index}`} className="text-white font-semibold text-base md:text-lg mb-1">
-                          {indicator.label}
-                        </h3>
-                        <div className="text-gray-300 text-sm md:text-base">
-                          {indicator.description}
-                        </div>
-                      </div>
+                    <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-lg flex items-center justify-center mx-auto mb-3">
+                      <Icon className="h-5 w-5 text-white" />
                     </div>
+                    <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
+                    <div className="text-sm text-blue-200 font-medium mb-1">{stat.label}</div>
+                    <div className="text-xs text-blue-300">{stat.description}</div>
                   </div>
                 );
               })}
             </div>
 
-            {/* Additional CTA - Mobile Optimized */}
-            <div className="pt-4">
-              <div className="trust-card bg-black/50 backdrop-blur-sm border border-amber-400/20 rounded-xl p-4 md:p-8 text-center">
-                <h3 className="text-xl md:text-2xl font-bold text-white mb-2 md:mb-3">
-                  Don't Wait - <span className="text-amber-300">Act Now</span>
-                </h3>
-                <p className="text-gray-300 mb-4 md:mb-6 text-base md:text-lg">
-                  Every day matters in car accident cases. Get connected with an attorney today.
-                </p>
-                <Link 
-                  href="/free-case-evaluation" 
-                  className="btn-modern-primary inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 text-base md:text-lg font-bold rounded-lg bg-gradient-to-r from-amber-400 to-amber-500 text-black hover:from-amber-500 hover:to-amber-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
-                  aria-describedby="schedule-consultation-description"
-                >
-                  Get Free Case Evaluation
-                  <ArrowRight className="ml-2 md:ml-3 h-4 w-4 md:h-5 md:w-5" aria-hidden="true" />
-                </Link>
-                <p id="schedule-consultation-description" className="sr-only">
-                  Get your free case evaluation. We'll connect you with an attorney within 24 hours.
-                </p>
+            {/* Social Proof */}
+            <div className="text-center p-6 bg-green-500/10 rounded-lg border border-green-400/20">
+              <div className="flex items-center justify-center space-x-1 mb-2">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                ))}
               </div>
+              <p className="text-white font-medium mb-1">
+                "They helped me when I felt completely lost"
+              </p>
+              <p className="text-green-200 text-sm">
+                - Sarah M., Atlanta resident
+              </p>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Skip to content link for accessibility */}
-      <a 
-        href="#main-content" 
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-amber-400 text-black px-4 py-2 rounded-md z-50 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-offset-2"
-      >
-        Skip to main content
-      </a>
-
-      {/* Scroll Indicator - Desktop only */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-amber-300 hidden lg:flex flex-col items-center space-y-2">
-        <span className="text-sm font-medium">Scroll to Learn More</span>
-        <ChevronDown className="h-6 w-6 animate-bounce" aria-hidden="true" />
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center">
+          <p className="text-white/60 text-sm mb-2">Learn more about your options</p>
+          <ChevronDown className="h-6 w-6 text-white/60 mx-auto animate-bounce" />
+        </div>
       </div>
     </section>
   );

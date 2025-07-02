@@ -34,10 +34,10 @@ interface ModernHeaderProps {
 
 const navigationItems: NavigationItem[] = [
   { name: 'Home', href: '/' },
-  { name: 'Emergency Help', href: '/what-to-do-after-car-accident' },
-  { name: 'Know Your Rights', href: '/understanding-your-rights' },
-  { name: 'AI Case Builder', href: '/ai-case-builder' },
-  { name: 'Find Attorney', href: '/find-attorney' },
+  { name: 'I Need Help', href: '/what-to-do-after-car-accident' },
+  { name: 'My Rights', href: '/understanding-your-rights' },
+  { name: 'Build My Case', href: '/ai-case-builder' },
+  { name: 'Get Attorney', href: '/find-attorney' },
   { 
     name: 'Resources', 
     href: '/resources',
@@ -214,7 +214,7 @@ export const ModernHeader: React.FC<ModernHeaderProps> = ({
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-6" aria-label="Main navigation">
+            <nav className="hidden xl:flex items-center space-x-8" aria-label="Main navigation">
               {navigationItems.map((item) => (
                 <div key={item.name} className="relative dropdown-parent">
                   <Link
@@ -268,7 +268,7 @@ export const ModernHeader: React.FC<ModernHeaderProps> = ({
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-2 rounded-lg text-white hover:text-yellow-400 hover:bg-yellow-400/10 transition-all duration-200"
+                className="xl:hidden p-2 rounded-lg text-white hover:text-yellow-400 hover:bg-yellow-400/10 transition-all duration-200"
                 aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={isMobileMenuOpen}
               >
@@ -286,7 +286,7 @@ export const ModernHeader: React.FC<ModernHeaderProps> = ({
       {/* Mobile Menu Backdrop */}
       <div 
         className={cn(
-          "mobile-menu-backdrop fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden",
+          "mobile-menu-backdrop fixed inset-0 bg-black/50 backdrop-blur-sm z-40 xl:hidden",
           isMobileMenuOpen ? 'open' : ''
         )}
         onClick={() => setIsMobileMenuOpen(false)}
@@ -295,7 +295,7 @@ export const ModernHeader: React.FC<ModernHeaderProps> = ({
 
       {/* Mobile Menu */}
       <div className={cn(
-        "mobile-menu fixed top-0 right-0 h-full w-80 bg-black border-l border-yellow-400/20 z-50 lg:hidden overflow-y-auto",
+        "mobile-menu fixed top-0 right-0 h-full w-80 bg-black border-l border-yellow-400/20 z-50 xl:hidden overflow-y-auto",
         isMobileMenuOpen ? 'open' : ''
       )}>
         {/* Menu Header */}
