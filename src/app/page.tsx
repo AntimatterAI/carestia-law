@@ -85,10 +85,10 @@ export default function HomePage() {
             <div className="max-w-7xl mx-auto px-4">
               <div className="text-center mb-12">
                 <h2 id="immediate-help-heading" className="text-3xl md:text-4xl font-bold text-red-800 mb-4">
-                  🚨 Just Had an Accident? Take These Steps Now
+                  🚨 Just Had an Accident? Act Fast
                 </h2>
                 <p className="text-xl text-red-700 max-w-3xl mx-auto">
-                  The actions you take immediately after a car accident can significantly impact your case. Follow this checklist:
+                  What you do now can make or break your case. Follow these critical steps:
                 </p>
               </div>
               
@@ -131,7 +131,7 @@ export default function HomePage() {
                   href="/what-to-do-after-car-accident" 
                   className="inline-flex items-center justify-center px-8 py-4 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition-colors duration-200"
                 >
-                  View Complete Accident Checklist
+                  View Complete Checklist
                 </a>
               </div>
             </div>

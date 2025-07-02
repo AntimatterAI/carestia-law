@@ -109,14 +109,14 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
                 Atlanta?
               </span>
               <span className="block text-3xl md:text-4xl lg:text-5xl font-medium text-white/90 mt-4">
-                Get the Help You Deserve
+                Get Legal Help Now
               </span>
             </h1>
 
             {/* Supporting Text */}
             <p className="text-xl md:text-2xl text-white/80 font-medium max-w-4xl mx-auto leading-relaxed mb-4">
-              Don't face insurance companies alone. Connect with experienced Atlanta car accident 
-              attorneys who have recovered millions for accident victims.
+              Connect with top Atlanta car accident attorneys. 
+              We've recovered millions for accident victims.
             </p>
 
             {/* Trust Statement */}
@@ -132,7 +132,7 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
                 aria-describedby="find-attorney-description"
               >
                 <Users className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
-                Find My Attorney Now
+                Find Attorney Now
                 <ArrowRight className="ml-2 md:ml-3 h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
               </Link>
               
@@ -142,7 +142,7 @@ export function HeroSection({ backgroundImage, className = '' }: HeroSectionProp
                 aria-label="Get free case evaluation"
               >
                 <Scale className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
-                Free Case Evaluation
+                Free Evaluation
               </Link>
             </div>
 

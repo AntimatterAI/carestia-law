@@ -34,19 +34,19 @@ interface ModernHeaderProps {
 
 const navigationItems: NavigationItem[] = [
   { name: 'Home', href: '/' },
-  { name: 'What to Do After a Car Accident', href: '/what-to-do-after-car-accident' },
-  { name: 'Understanding Your Rights', href: '/understanding-your-rights' },
-  { name: 'Find an Attorney', href: '/find-attorney' },
+  { name: 'Emergency Help', href: '/what-to-do-after-car-accident' },
+  { name: 'Know Your Rights', href: '/understanding-your-rights' },
+  { name: 'Find Attorney', href: '/find-attorney' },
   { 
     name: 'Resources', 
     href: '/resources',
     submenu: [
-      { name: 'Car Accident Checklist', href: '/resources/car-accident-checklist', description: 'Step-by-step guide for accident victims' },
-      { name: 'Insurance FAQ', href: '/resources/insurance-faq', description: 'Common insurance questions answered' },
-      { name: 'Georgia Traffic Laws', href: '/resources/georgia-traffic-laws', description: 'Know the laws that protect you' },
-      { name: 'Accident Report Forms', href: '/resources/accident-report-forms', description: 'Required forms and documents' },
-      { name: 'Common Injuries', href: '/resources/common-injuries', description: 'Car accident injury types and treatment' },
-      { name: 'Medical Treatment Guide', href: '/resources/medical-treatment-guide', description: 'Getting proper medical care' },
+      { name: 'Accident Checklist', href: '/resources/car-accident-checklist', description: 'Step-by-step guide for accident victims' },
+      { name: 'Insurance Help', href: '/resources/insurance-faq', description: 'Common insurance questions answered' },
+      { name: 'Georgia Laws', href: '/resources/georgia-traffic-laws', description: 'Know the laws that protect you' },
+      { name: 'Legal Forms', href: '/resources/accident-report-forms', description: 'Required forms and documents' },
+      { name: 'Injury Guide', href: '/resources/common-injuries', description: 'Car accident injury types and treatment' },
+      { name: 'Medical Care', href: '/resources/medical-treatment-guide', description: 'Getting proper medical care' },
     ]
   },
   { name: 'Blog', href: '/blog' },
@@ -114,11 +114,11 @@ export const ModernHeader: React.FC<ModernHeaderProps> = ({
       {/* CSS Animations */}
       <style jsx>{`
         .header-scrolled {
-          height: 64px;
+          height: 60px;
         }
         
         .header-normal {
-          height: 80px;
+          height: 70px;
         }
         
         .logo-scrolled {
@@ -213,7 +213,7 @@ export const ModernHeader: React.FC<ModernHeaderProps> = ({
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8" aria-label="Main navigation">
+            <nav className="hidden lg:flex items-center space-x-6" aria-label="Main navigation">
               {navigationItems.map((item) => (
                 <div key={item.name} className="relative dropdown-parent">
                   <Link
@@ -371,7 +371,7 @@ export const ModernHeader: React.FC<ModernHeaderProps> = ({
       {sticky && (
         <div className={cn(
           "transition-all duration-300",
-          isScrolled ? "h-16" : "h-20"
+          isScrolled ? "h-14" : "h-16"
         )} />
       )}
     </>
